@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		936FC9801AC367DB001C3A73 /* RouteSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 936FC97F1AC367DB001C3A73 /* RouteSectionView.m */; };
+		936FC9821AC367E6001C3A73 /* RouteSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936FC9811AC367E6001C3A73 /* RouteSectionView.xib */; };
 		937CF4641ABBA7D70071F5A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CF4631ABBA7D70071F5A2 /* main.m */; };
 		937CF4671ABBA7D70071F5A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CF4661ABBA7D70071F5A2 /* AppDelegate.m */; };
 		937CF46A1ABBA7D70071F5A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CF4691ABBA7D70071F5A2 /* ViewController.m */; };
 		937CF46D1ABBA7D70071F5A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937CF46B1ABBA7D70071F5A2 /* Main.storyboard */; };
 		937CF46F1ABBA7D70071F5A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937CF46E1ABBA7D70071F5A2 /* Images.xcassets */; };
-		937CF4721ABBA7D70071F5A2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937CF4701ABBA7D70071F5A2 /* LaunchScreen.xib */; };
 		937CF47E1ABBA7D70071F5A2 /* SpinPalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CF47D1ABBA7D70071F5A2 /* SpinPalTests.m */; };
+		939B55711AC0FF2900153C45 /* RouteSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 939B55701AC0FF2900153C45 /* RouteSection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		936FC97E1AC367DB001C3A73 /* RouteSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteSectionView.h; sourceTree = "<group>"; };
+		936FC97F1AC367DB001C3A73 /* RouteSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSectionView.m; sourceTree = "<group>"; };
+		936FC9811AC367E6001C3A73 /* RouteSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteSectionView.xib; sourceTree = "<group>"; };
 		937CF45E1ABBA7D70071F5A2 /* SpinPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpinPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937CF4621ABBA7D70071F5A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		937CF4631ABBA7D70071F5A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -36,10 +41,11 @@
 		937CF4691ABBA7D70071F5A2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		937CF46C1ABBA7D70071F5A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		937CF46E1ABBA7D70071F5A2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		937CF4711ABBA7D70071F5A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		937CF4771ABBA7D70071F5A2 /* SpinPalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpinPalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937CF47C1ABBA7D70071F5A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		937CF47D1ABBA7D70071F5A2 /* SpinPalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinPalTests.m; sourceTree = "<group>"; };
+		939B556F1AC0FF2900153C45 /* RouteSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteSection.h; sourceTree = "<group>"; };
+		939B55701AC0FF2900153C45 /* RouteSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,11 +89,15 @@
 			children = (
 				937CF4651ABBA7D70071F5A2 /* AppDelegate.h */,
 				937CF4661ABBA7D70071F5A2 /* AppDelegate.m */,
+				939B556F1AC0FF2900153C45 /* RouteSection.h */,
+				939B55701AC0FF2900153C45 /* RouteSection.m */,
+				936FC97E1AC367DB001C3A73 /* RouteSectionView.h */,
+				936FC97F1AC367DB001C3A73 /* RouteSectionView.m */,
+				936FC9811AC367E6001C3A73 /* RouteSectionView.xib */,
 				937CF4681ABBA7D70071F5A2 /* ViewController.h */,
 				937CF4691ABBA7D70071F5A2 /* ViewController.m */,
 				937CF46B1ABBA7D70071F5A2 /* Main.storyboard */,
 				937CF46E1ABBA7D70071F5A2 /* Images.xcassets */,
-				937CF4701ABBA7D70071F5A2 /* LaunchScreen.xib */,
 				937CF4611ABBA7D70071F5A2 /* Supporting Files */,
 			);
 			path = SpinPal;
@@ -199,8 +209,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				936FC9821AC367E6001C3A73 /* RouteSectionView.xib in Resources */,
 				937CF46D1ABBA7D70071F5A2 /* Main.storyboard in Resources */,
-				937CF4721ABBA7D70071F5A2 /* LaunchScreen.xib in Resources */,
 				937CF46F1ABBA7D70071F5A2 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,8 +229,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				936FC9801AC367DB001C3A73 /* RouteSectionView.m in Sources */,
 				937CF46A1ABBA7D70071F5A2 /* ViewController.m in Sources */,
 				937CF4671ABBA7D70071F5A2 /* AppDelegate.m in Sources */,
+				939B55711AC0FF2900153C45 /* RouteSection.m in Sources */,
 				937CF4641ABBA7D70071F5A2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,14 +262,6 @@
 				937CF46C1ABBA7D70071F5A2 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		937CF4701ABBA7D70071F5A2 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				937CF4711ABBA7D70071F5A2 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -412,6 +416,7 @@
 				937CF4831ABBA7D70071F5A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		937CF4841ABBA7D70071F5A2 /* Build configuration list for PBXNativeTarget "SpinPalTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +425,7 @@
 				937CF4861ABBA7D70071F5A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
