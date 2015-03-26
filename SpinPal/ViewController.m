@@ -19,29 +19,18 @@
 	
 	_route = [self getRoute];
 	
-	CGRect rect = CGRectMake(self.view.frame.size.width/2-50, self.view.frame.size.height/2-90, 100, 180);
-	
-	RouteSectionView *v = [[RouteSectionView alloc] initWithFrame:rect];
-	RouteSection *section = [[RouteSection alloc] initWithRouteType:RouteTypeNone];
-	[section setSeconds:90];
-	[section setRpm:100];
-	[section setRepetitions:23];
-	[section setResistance:3];
-	[v setSection:section];
-	[v loadData];
-	[self.view addSubview:v];
-	
-	rect = CGRectMake(self.view.frame.size.width/2-180, self.view.frame.size.height/2-90, 100, 180);
-	
-	RouteSectionView *v2 = [[RouteSectionView alloc] initWithFrame:rect];
-	section = [[RouteSection alloc] initWithRouteType:RouteTypeStraight];
-	[section setSeconds:90];
-	[section setRpm:100];
-	[section setRepetitions:23];
-	[section setResistance:3];
-	[v2 setSection:section];
-	[v2 loadData];
-	[self.view addSubview:v2];
+	CGRect frame = CGRectMake(0, self.view.frame.size.height/2-90, 130*_route.count, 180);
+	_routeViewsContainer = [[UIView alloc] initWithFrame:frame];
+	[self.view addSubview:_routeViewsContainer];
+	_routeViews = [[NSMutableArray alloc] init];
+	for (int i=0; i<_route.count; i++) {
+		frame = CGRectMake(130*i, 0, 100, 180);
+		RouteSectionView *v = [[RouteSectionView alloc] initWithFrame:frame];
+		[v setSection:_route[i]];
+		[v loadData];
+		[_routeViews addObject:v];
+		[_routeViewsContainer addSubview:v];
+	}
 }
 
 - (NSString *)routeFilename {

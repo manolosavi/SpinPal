@@ -13,5 +13,7 @@
 @interface ViewController : UIViewController
 
 @property (strong) NSMutableArray *route;
+@property (strong) NSMutableArray *routeViews;
+@property (strong) UIView *routeViewsContainer;
 
 @end

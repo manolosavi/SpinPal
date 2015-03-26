@@ -14,16 +14,24 @@
 	switch (type) {
 		case RouteTypeNone:
 			return [UIImage imageNamed:@"addSection"];
-		case RouteTypeStraight:
-			return [UIImage imageNamed:@"straight"];
+		case RouteTypeStraightStand:
+			return [UIImage imageNamed:@"straightStand"];
+		case RouteTypeStraightSit:
+			return [UIImage imageNamed:@"straightSit"];
 		case RouteTypeJump:
-			return [UIImage imageNamed:@""];
-		case RouteTypeStand:
-			return [UIImage imageNamed:@""];
+			return [UIImage imageNamed:@"jump"];
 		case RouteTypeUpStand:
-			return [UIImage imageNamed:@""];
+			return [UIImage imageNamed:@"upStand"];
 		case RouteTypeUpSit:
-			return [UIImage imageNamed:@""];
+			return [UIImage imageNamed:@"upSit"];
+		case RouteTypeRaceStand:
+			return [UIImage imageNamed:@"raceStand"];
+		case RouteTypeRaceSit:
+			return [UIImage imageNamed:@"raceSit"];
+		case RouteTypeSprint:
+			return [UIImage imageNamed:@"sprint"];
+		case RouteTypeSprintUp:
+			return [UIImage imageNamed:@"sprintUp"];
 	}
 }
 
@@ -39,8 +47,7 @@
 	if (self = [super init]) {
 		self.seconds = [decoder decodeIntegerForKey:@"seconds"];
 		self.rpm = [decoder decodeIntegerForKey:@"rpm"];
-		self.repetitions = [decoder decodeIntegerForKey:@"repetitions"];
-		self.resistance = [decoder decodeIntegerForKey:@"resistance"];
+		self.jumpCount = [decoder decodeIntegerForKey:@"jumpCount"];
 		self.rightSide = [decoder decodeBoolForKey:@"rightSide"];
 		self.type = [decoder decodeIntegerForKey:@"type"];
 		self.icon = [self getImage:self.type];
@@ -51,8 +58,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
 	[encoder encodeInteger:self.seconds forKey:@"seconds"];
 	[encoder encodeInteger:self.rpm forKey:@"rpm"];
-	[encoder encodeInteger:self.repetitions forKey:@"repetitions"];
-	[encoder encodeInteger:self.resistance forKey:@"resistance"];
+	[encoder encodeInteger:self.jumpCount forKey:@"jumpCount"];
 	[encoder encodeBool:self.rightSide forKey:@"rightSide"];
 	[encoder encodeInteger:self.type forKey:@"type"];
 }

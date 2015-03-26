@@ -12,18 +12,21 @@
 @interface RouteSection : NSObject <NSCoding>
 
 typedef NS_ENUM(NSInteger, RouteType) {
-	RouteTypeNone		= -1,
-	RouteTypeStraight	= 0,
-	RouteTypeJump		= 1,
-	RouteTypeStand		= 2,
-	RouteTypeUpStand		= 3,
-	RouteTypeUpSit		= 4
+	RouteTypeNone			= -1,
+	RouteTypeStraightStand	= 0,
+	RouteTypeStraightSit	= 1,
+	RouteTypeJump			= 2,
+	RouteTypeUpStand			= 3,
+	RouteTypeUpSit			= 4,
+	RouteTypeRaceStand		= 5,
+	RouteTypeRaceSit			= 6,
+	RouteTypeSprint			= 7,
+	RouteTypeSprintUp		= 8
 };
 
 @property NSTimeInterval seconds;
 @property NSInteger rpm;
-@property NSInteger repetitions;
-@property NSInteger resistance;
+@property NSInteger jumpCount;//1,2,4,8
 @property BOOL rightSide;
 @property RouteType type;
 @property (strong) UIImage *icon;

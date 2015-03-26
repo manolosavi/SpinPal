@@ -15,6 +15,8 @@
 @property (strong, nonatomic) IBOutlet UIView *view;
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rpmLabel;
+@property (weak, nonatomic) IBOutlet UILabel *jumpCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rightSideLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
 - (void)loadData;
