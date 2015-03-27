@@ -44,7 +44,6 @@ static NSInteger SECTIONTOEDIT;
 		RouteSectionView *v = [[RouteSectionView alloc] initWithFrame:frame];
 		[v setSection:_route[i]];
 		[v loadData];
-		v.iconButton.tag = i;
 		[_routeViews addObject:v];
 		[_routeViewsContainer addSubview:v];
 	}
@@ -56,9 +55,16 @@ static NSInteger SECTIONTOEDIT;
 		[_editSectionView.layer setOpacity:1];
 	}];
 	
-	SECTIONTOEDIT = sender.tag;
+	for (int i=0; i<_route.count; i++) {
+		if (((RouteSectionView*)_routeViews[i]).iconButton == sender) {
+			SECTIONTOEDIT = i;
+			break;
+		}
+	}
+	
 	RouteSection *section = (RouteSection*)_route[SECTIONTOEDIT];
 	ISADDINGNEWSECTION = section.type==RouteTypeNone;
+	
 	
 	if (!ISADDINGNEWSECTION) {
 //		load section to edit
@@ -85,7 +91,6 @@ static NSInteger SECTIONTOEDIT;
 		RouteSection *section = [[RouteSection alloc] initWithRouteType:RouteTypeNone];
 		[view setSection:section];//Set view's section
 		[view loadData];//Load data from section
-		view.iconButton.tag = _route.count;//Set tag to know which icon is tapped
 		[_route addObject:section];//Add section to array of sections
 		[_routeViews addObject:view];//Add view to array of section views
 		[_routeViewsContainer addSubview:view];//Add view to container
