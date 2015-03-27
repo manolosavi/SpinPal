@@ -35,6 +35,10 @@
 	}
 }
 
+- (void)changeIcon {
+	self.icon = [self getImage:_type];
+}
+
 - (instancetype)initWithRouteType:(RouteType)type {
 	if (self = [super init]) {
 		self.type = type;

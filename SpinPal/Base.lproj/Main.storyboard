@@ -15,8 +15,83 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rij-k1-jn8">
+                                <rect key="frame" x="0.0" y="210" width="600" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="7FJ-cW-ztS"/>
+                                </constraints>
+                            </scrollView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f58-QY-WaI">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fg0-g7-3rF">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZZY-YE-Egs">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="W7O-0F-tGm">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="dark"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24a-AI-4Q1" userLabel="Button Background">
+                                            <rect key="frame" x="0.0" y="520" width="600" height="80"/>
+                                            <color key="backgroundColor" red="0.20992468297481537" green="0.89727967977523804" blue="0.42145901918411255" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTE-69-70a">
+                                            <rect key="frame" x="0.0" y="520" width="600" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="80" id="LWd-P7-34l"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="25"/>
+                                            <state key="normal" title="Save">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="closeNewSectionView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="SX6-4G-BY6"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="24a-AI-4Q1" firstAttribute="centerY" secondItem="gTE-69-70a" secondAttribute="centerY" id="KKy-Be-5fo"/>
+                                        <constraint firstItem="24a-AI-4Q1" firstAttribute="width" secondItem="gTE-69-70a" secondAttribute="width" id="UJn-vb-cf1"/>
+                                        <constraint firstItem="24a-AI-4Q1" firstAttribute="height" secondItem="gTE-69-70a" secondAttribute="height" id="m7W-KO-9L4"/>
+                                        <constraint firstItem="24a-AI-4Q1" firstAttribute="centerX" secondItem="gTE-69-70a" secondAttribute="centerX" id="qzK-WM-4Db"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZZY-YE-Egs" secondAttribute="width" id="1F1-Wl-2to"/>
+                                    <constraint firstItem="gTE-69-70a" firstAttribute="width" secondItem="f58-QY-WaI" secondAttribute="width" id="6Bn-5R-voz"/>
+                                    <constraint firstAttribute="centerY" secondItem="ZZY-YE-Egs" secondAttribute="centerY" id="6DS-Gh-y1M"/>
+                                    <constraint firstAttribute="bottom" secondItem="gTE-69-70a" secondAttribute="bottom" id="IUD-3A-ByR"/>
+                                    <constraint firstItem="gTE-69-70a" firstAttribute="centerX" secondItem="f58-QY-WaI" secondAttribute="centerX" id="RH2-b1-h8o"/>
+                                    <constraint firstAttribute="centerX" secondItem="ZZY-YE-Egs" secondAttribute="centerX" id="dZI-aa-Lh0"/>
+                                    <constraint firstAttribute="height" secondItem="ZZY-YE-Egs" secondAttribute="height" id="iSn-WS-ffb"/>
+                                </constraints>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="rij-k1-jn8" secondAttribute="centerX" id="2yP-Tu-WrN"/>
+                            <constraint firstAttribute="centerY" secondItem="f58-QY-WaI" secondAttribute="centerY" id="78N-lR-OXa"/>
+                            <constraint firstAttribute="height" secondItem="f58-QY-WaI" secondAttribute="height" id="SCP-0L-e3C"/>
+                            <constraint firstAttribute="width" secondItem="f58-QY-WaI" secondAttribute="width" id="d9i-a9-hJS"/>
+                            <constraint firstAttribute="centerY" secondItem="rij-k1-jn8" secondAttribute="centerY" id="e4d-Bq-rGO"/>
+                            <constraint firstAttribute="centerX" secondItem="f58-QY-WaI" secondAttribute="centerX" id="eUr-b0-8vb"/>
+                            <constraint firstItem="rij-k1-jn8" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="yDs-CG-Q1o"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="closebutton" destination="gTE-69-70a" id="kZ6-ok-aUs"/>
+                        <outlet property="editSectionView" destination="f58-QY-WaI" id="8kz-94-RLz"/>
+                        <outlet property="scrollView" destination="rij-k1-jn8" id="nzP-PM-p2A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

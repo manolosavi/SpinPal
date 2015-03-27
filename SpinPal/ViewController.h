@@ -16,4 +16,6 @@
 @property (strong) NSMutableArray *routeViews;
 @property (strong) UIView *routeViewsContainer;
 
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *editSectionView;
+
 @end

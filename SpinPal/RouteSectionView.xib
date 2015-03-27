@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RouteSectionView">
             <connections>
-                <outlet property="iconImageView" destination="4u4-pA-rmT" id="L4L-Gf-D9U"/>
+                <outlet property="iconButton" destination="Lgo-t3-d8K" id="BSh-A1-GUV"/>
                 <outlet property="jumpCountLabel" destination="D4c-f2-cAm" id="0UW-VG-VOR"/>
                 <outlet property="rightSideLabel" destination="M9s-kB-aUh" id="qou-tH-u34"/>
                 <outlet property="rpmLabel" destination="VFh-19-cgY" id="PTL-LP-vma"/>
@@ -19,9 +19,16 @@
             <rect key="frame" x="0.0" y="0.0" width="100" height="180"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4u4-pA-rmT">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lgo-t3-d8K">
                     <rect key="frame" x="0.0" y="40" width="100" height="100"/>
-                </imageView>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="ZzD-eB-jVP"/>
+                        <constraint firstAttribute="width" constant="100" id="pQF-p2-FcP"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="85" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFh-19-cgY">
                     <rect key="frame" x="0.0" y="140" width="100" height="40"/>
                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="30"/>
@@ -47,11 +54,15 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="Lgo-t3-d8K" secondAttribute="centerX" id="8TM-wS-BdI"/>
+                <constraint firstAttribute="centerY" secondItem="Lgo-t3-d8K" secondAttribute="centerY" id="N1D-q2-wPw"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="37" y="151"/>
+            <point key="canvasLocation" x="37" y="151.5"/>
         </view>
     </objects>
 </document>

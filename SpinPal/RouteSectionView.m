@@ -17,7 +17,7 @@
 	_rpmLabel.text = [NSString stringWithFormat:@"%li", _section.rpm];
 	_jumpCountLabel.text = [NSString stringWithFormat:@"%li", _section.jumpCount];
 	_rightSideLabel.text = (_section.rightSide)?@"R":@"L";
-	[_iconImageView setImage:_section.icon];
+	[_iconButton setBackgroundImage:_section.icon forState:UIControlStateNormal];
 	[self hideLabels];
 }
 
@@ -29,21 +29,30 @@
 	_rightSideLabel.hidden = _section.type!=RouteTypeJump;
 }
 
+//Ignore undeclared selector warnings
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+- (void)initialize {
+//	Load .xib
+	[[NSBundle mainBundle] loadNibNamed:@"RouteSectionView" owner:self options:nil];
+	self.bounds = self.view.bounds;
+	
+	[self.iconButton addTarget:[self superview] action:@selector(openNewSectionView:) forControlEvents:UIControlEventTouchUpInside];
+	
+	[self addSubview:self.view];
+}
+#pragma clang diagnostic pop
+//End ignore
+
 - (instancetype)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
-//		Load .xib
-		[[NSBundle mainBundle] loadNibNamed:@"RouteSectionView" owner:self options:nil];
-		self.bounds = self.view.bounds;
-		[self addSubview:self.view];
+		[self initialize];
 	}
 	return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
-//		Load .xib
-		[[NSBundle mainBundle] loadNibNamed:@"RouteSectionView" owner:self options:nil];
-		[self addSubview:self.view];
+		[self initialize];
 	}
 	return self;
 }
