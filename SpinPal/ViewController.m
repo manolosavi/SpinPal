@@ -56,13 +56,13 @@ static NSInteger SECTIONTOEDIT;
 	}];
 	
 	for (int i=0; i<_route.count; i++) {
-		if (((RouteSectionView*)_routeViews[i]).iconButton == sender) {
+		if ([_routeViews[i] iconButton] == sender) {
 			SECTIONTOEDIT = i;
 			break;
 		}
 	}
 	
-	RouteSection *section = (RouteSection*)_route[SECTIONTOEDIT];
+	RouteSection *section = _route[SECTIONTOEDIT];
 	ISADDINGNEWSECTION = section.type==RouteTypeNone;
 	
 	
@@ -74,11 +74,11 @@ static NSInteger SECTIONTOEDIT;
 
 - (IBAction)closeNewSectionView:(id)sender {
 //	Edit old "new section button" info
-	RouteSection *section = (RouteSection*)_route[SECTIONTOEDIT];
+	RouteSection *section = _route[SECTIONTOEDIT];
 //	section.rpm = UITextField…;
 	section.type = RouteTypeStraightStand;
 	[section changeIcon];
-	((RouteSectionView*)_routeViews[SECTIONTOEDIT]).section = section;
+	[_routeViews[SECTIONTOEDIT] setSection:section];
 	[_routeViews[SECTIONTOEDIT] loadData];
 	
 	if (ISADDINGNEWSECTION) {
