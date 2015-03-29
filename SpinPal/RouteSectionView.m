@@ -14,8 +14,8 @@
 	int mins = _section.seconds/60;
 	int secs = (int)_section.seconds%60;
 	_secondsLabel.text = [NSString stringWithFormat:@"%i:%i", mins, secs];
-	_rpmLabel.text = [NSString stringWithFormat:@"%li", _section.rpm];
-	_jumpCountLabel.text = [NSString stringWithFormat:@"%li", _section.jumpCount];
+	_rpmLabel.text = [NSString stringWithFormat:@"%li", (long)_section.rpm];
+	_jumpCountLabel.text = [NSString stringWithFormat:@"%li", (long)_section.jumpCount];
 	_rightSideLabel.text = (_section.rightSide)?@"R":@"L";
 	[_iconButton setBackgroundImage:_section.icon forState:UIControlStateNormal];
 	[self hideLabels];
