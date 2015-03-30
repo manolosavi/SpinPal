@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Rectangle 3 + Rectangle 6 + Rectangle 4.png"
+      "filename" : "sprintUp.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Rectangle 3 + Rectangle 6 + Rectangle 4@2x.png"
+      "filename" : "sprintUp@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "Rectangle 3 + Rectangle 6 + Rectangle 4@3x.png"
+      "filename" : "sprintUp@3x.png"
     }
   ],
   "info" : {

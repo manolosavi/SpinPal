@@ -17,13 +17,17 @@
 
 @implementation ViewController
 
+UIColor *green, *red;
 static BOOL ISADDINGNEWSECTION;
 static NSInteger SECTIONTOEDIT;
-static CurrentStatus STATUS;
+static CurrentStatus STATUS, OLDSTATUS;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[_scrollView setBackgroundColor:[UIColor colorWithHue:0 saturation:0 brightness:0 alpha:.2]];
+	
+	green = [UIColor colorWithHue:138/360.0 saturation:.77 brightness:.9 alpha:1];
+	red = [UIColor colorWithHue:3/360.0 saturation:.77 brightness:.9 alpha:1];
+	
 	_editSectionView.hidden = true;
 	[_editSectionView.layer setOpacity:0];
 	
@@ -31,17 +35,29 @@ static CurrentStatus STATUS;
 	
 	CGRect frame = CGRectMake(0, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
 	_leftButton = [[UIButton alloc] initWithFrame:frame];
-	[_leftButton setBackgroundColor:[UIColor redColor]];
+	[_leftButton setBackgroundColor:green];
 	frame = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
 	_rightButton = [[UIButton alloc] initWithFrame:frame];
-	[_rightButton setBackgroundColor:[UIColor blueColor]];
+	[_rightButton setBackgroundColor:red];
 	[self.view insertSubview:_leftButton atIndex:0];
 	[self.view insertSubview:_rightButton atIndex:0];
+	[_leftButton addTarget:self action:@selector(leftButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+	[_rightButton addTarget:self action:@selector(rightButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+	[_leftButton setTitle:@"Left" forState:UIControlStateNormal];
+	[_rightButton setTitle:@"Right" forState:UIControlStateNormal];
+	UIFont *font = [UIFont fontWithName:@"AvenirNext-Medium" size:25];
+	[_leftButton.titleLabel setFont:font];
+	[_leftButton.titleLabel setTextColor:[UIColor whiteColor]];
+	[_rightButton.titleLabel setFont:font];
+	[_rightButton.titleLabel setTextColor:[UIColor whiteColor]];
+	_leftButton.hidden = true;
+	[_leftButton.layer setOpacity:0];
+	_rightButton.hidden = true;
+	[_rightButton.layer setOpacity:0];
 	
-	[_closeButton setBackgroundColor:[UIColor colorWithHue:138/360.0 saturation:.77 brightness:.9 alpha:1]];
+	[_closeButton setBackgroundColor:green];
 	
-	STATUS = (_route.count>1)?CurrentStatusReady:CurrentStatusEmpty;
-	[self statusChanged];
+	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
 	
 	[self loadViewsIntoContainer];
 	
@@ -74,12 +90,16 @@ static CurrentStatus STATUS;
 	int offset = self.view.frame.size.width/2-80;
 	frame = CGRectMake(offset+200*_route.count, 0, 160, 240);//Make frame for section
 	RouteSectionView *view = [[RouteSectionView alloc] initWithFrame:frame];
+	[view.layer setOpacity:0];
 	RouteSection *section = [[RouteSection alloc] initWithRouteType:RouteTypeNone];
 	[view setSection:section];//Set view's section
 	[view loadData];//Load data from section
 	[_route addObject:section];//Add section to array of sections
 	[_routeViews addObject:view];//Add view to array of section views
 	[_routeViewsContainer addSubview:view];//Add view to container
+	[UIView animateWithDuration:.2 animations:^{
+		[view.layer setOpacity:1];
+	}];
 	[_scrollView setContentSize:_routeViewsContainer.frame.size];//Set new size for scrollview's content
 	if (_scrollView.contentSize.width > self.view.frame.size.width) {
 		CGPoint offset = CGPointMake(_scrollView.contentSize.width - _scrollView.bounds.size.width, 0);
@@ -115,7 +135,6 @@ static CurrentStatus STATUS;
 	RouteSection *section = _route[SECTIONTOEDIT];
 	ISADDINGNEWSECTION = section.type==RouteTypeNone;
 	
-	
 	if (!ISADDINGNEWSECTION) {
 //		load section to edit
 //		UITextField text = section.seconds etc
@@ -136,6 +155,8 @@ static CurrentStatus STATUS;
 		[self insertAddNewSectionViewToContainer];
 	}
 	
+	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
+	
 	[UIView animateWithDuration:.3 animations:^{
 		[_editSectionView.layer setOpacity:0];
 	} completion:^(BOOL finished) {
@@ -143,17 +164,104 @@ static CurrentStatus STATUS;
 	}];
 }
 
-- (void)statusChanged {
+- (void)leftButtonTapped {
+	if (STATUS == CurrentStatusRunning) {
+		[self showRightButton];
+		[self setStatus:CurrentStatusReady];
+	} else {
+		[self hideRightButton];
+		[self setStatus:CurrentStatusRunning];
+	}
+}
+
+- (void)rightButtonTapped {
+	
+}
+
+- (void)hideRightButton {
+	CGRect lFrame = CGRectMake(0, self.view.frame.size.height-80, self.view.frame.size.width, 80);
+	CGRect rFrame = CGRectMake(self.view.frame.size.width, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
+	
+	[UIView animateWithDuration:.3 delay:0 usingSpringWithDamping:.5 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+		[_leftButton setFrame:lFrame];
+		[_rightButton setFrame:rFrame];
+	} completion:nil];
+}
+
+- (void)showRightButton {
+	CGRect lFrame = CGRectMake(0, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
+	CGRect rFrame = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
+	UIView *v = [[UIView alloc] initWithFrame:rFrame];
+	[v setBackgroundColor:red];
+	[self.view insertSubview:v atIndex:0];
+	[UIView animateWithDuration:.3 delay:0 usingSpringWithDamping:.5 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+		[_leftButton setFrame:lFrame];
+		[_rightButton setFrame:rFrame];
+	} completion:^(BOOL finished) {
+		[v removeFromSuperview];
+	}];
+}
+
+- (void)setStatus:(CurrentStatus)newStatus {
 //	CurrentStatusEmpty		= no button
 //	CurrentStatusReady		= new/start
 //	CurrentStatusRunning	= pause
 //	CurrentStatusPaused		= stop/continue
 //	CurrentStatusEnded		= new/restart
 	
-//	ready->running
-//	CGPoint offset = CGPointMake(0, 0);
-//	[self.scrollView setContentOffset:offset animated:true];
-//	[self removeAddNewSectionViewFromContainer];
+	switch (newStatus) {
+		case CurrentStatusEmpty:{
+			[UIView animateWithDuration:.2 animations:^{
+				[_leftButton.layer setOpacity:0];
+				[_rightButton.layer setOpacity:0];
+			} completion:^(BOOL finished) {
+				_leftButton.hidden = true;
+				_rightButton.hidden = true;
+			}];
+			[_scrollView setUserInteractionEnabled:true];
+			}break;
+		case CurrentStatusReady:{
+			[_leftButton setTitle:@"Start" forState:UIControlStateNormal];
+			[_rightButton setTitle:@"New" forState:UIControlStateNormal];
+			_leftButton.hidden = false;
+			_rightButton.hidden = false;
+			[UIView animateWithDuration:.2 animations:^{
+				[_leftButton.layer setOpacity:1];
+				[_rightButton.layer setOpacity:1];
+			}];
+			if (STATUS == CurrentStatusRunning) {
+				[self insertAddNewSectionViewToContainer];
+			}
+			[_scrollView setUserInteractionEnabled:true];
+			}break;
+		case CurrentStatusRunning:{
+			if (STATUS == CurrentStatusReady) {
+				CGPoint offset = CGPointMake(0, 0);
+				[_scrollView setContentOffset:offset animated:true];
+				[UIView animateWithDuration:.2 animations:^{
+//					Hide it first, delete after delay to avoid problems with scroll offset
+					[[[_routeViews lastObject] layer] setOpacity:0];
+				}];
+				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+					[self removeAddNewSectionViewFromContainer];
+				});
+			}
+			[_leftButton setTitle:@"Pause" forState:UIControlStateNormal];
+			[_scrollView setUserInteractionEnabled:false];
+			}break;
+		case CurrentStatusPaused:
+			[_leftButton setTitle:@"Continue" forState:UIControlStateNormal];
+			[_rightButton setTitle:@"Stop" forState:UIControlStateNormal];
+			[_scrollView setUserInteractionEnabled:false];
+			break;
+		case CurrentStatusEnded:
+			[_leftButton setTitle:@"Restart" forState:UIControlStateNormal];
+			[_rightButton setTitle:@"New" forState:UIControlStateNormal];
+			[_scrollView setUserInteractionEnabled:true];
+			break;
+	}
+	OLDSTATUS = STATUS;
+	STATUS = newStatus;
 }
 
 #pragma mark Saving / Loading

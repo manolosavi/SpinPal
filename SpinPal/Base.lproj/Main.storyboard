@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rij-k1-jn8">
-                                <rect key="frame" x="0.0" y="180" width="600" height="240"/>
+                                <rect key="frame" x="0.0" y="140" width="600" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="7FJ-cW-ztS"/>
                                 </constraints>
@@ -36,7 +36,7 @@
                                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="25"/>
                                             <state key="normal" title="Save">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
                                                 <action selector="closeNewSectionView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="SX6-4G-BY6"/>
@@ -52,13 +52,13 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.91218233108520508" green="0.89735418558120728" blue="0.87830698490142822" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="rij-k1-jn8" secondAttribute="centerX" id="2yP-Tu-WrN"/>
                             <constraint firstAttribute="centerY" secondItem="f58-QY-WaI" secondAttribute="centerY" id="78N-lR-OXa"/>
                             <constraint firstAttribute="height" secondItem="f58-QY-WaI" secondAttribute="height" id="SCP-0L-e3C"/>
                             <constraint firstAttribute="width" secondItem="f58-QY-WaI" secondAttribute="width" id="d9i-a9-hJS"/>
-                            <constraint firstAttribute="centerY" secondItem="rij-k1-jn8" secondAttribute="centerY" id="e4d-Bq-rGO"/>
+                            <constraint firstAttribute="centerY" secondItem="rij-k1-jn8" secondAttribute="centerY" constant="40" id="e4d-Bq-rGO"/>
                             <constraint firstAttribute="centerX" secondItem="f58-QY-WaI" secondAttribute="centerX" id="eUr-b0-8vb"/>
                             <constraint firstItem="rij-k1-jn8" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="yDs-CG-Q1o"/>
                         </constraints>
