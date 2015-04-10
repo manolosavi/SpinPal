@@ -13,10 +13,10 @@
 
 @property RouteSection *section;
 @property (strong, nonatomic) IBOutlet UIView *view;
-@property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rpmLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jumpCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rightSideLabel;
+@property (weak, nonatomic) IBOutlet UITextField *secondsTextField;
+@property (weak, nonatomic) IBOutlet UITextField *rpmTextField;
+@property (weak, nonatomic) IBOutlet UITextField *jumpCountTextField;
+@property (weak, nonatomic) IBOutlet UIButton *rightSideButton;
 @property (weak, nonatomic) IBOutlet UIButton *iconButton;
 
 - (void)loadData;

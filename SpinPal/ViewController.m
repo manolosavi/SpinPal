@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *totalTimeLabel;
 
 @end
 
@@ -55,6 +56,14 @@ static CurrentStatus STATUS, OLDSTATUS;
 	_rightButton.hidden = true;
 	[_rightButton.layer setOpacity:0];
 	
+	_editableSectionView.rightSideButton.userInteractionEnabled = true;
+	_editableSectionView.jumpCountTextField.userInteractionEnabled = true;
+	_editableSectionView.secondsTextField.userInteractionEnabled = true;
+	_pickerView = [[UIPickerView alloc] init];
+	_pickerView.delegate = self;
+	_pickerView.dataSource = self;
+	_editableSectionView.secondsTextField.inputView = _pickerView;
+	_editableSectionView.rpmTextField.userInteractionEnabled = true;
 	[_closeButton setBackgroundColor:green];
 	
 	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
@@ -81,6 +90,20 @@ static CurrentStatus STATUS, OLDSTATUS;
 		[_routeViews addObject:v];
 		[_routeViewsContainer addSubview:v];
 	}
+	[self loadTotalTime];
+}
+
+- (void)loadTotalTime {
+	int total = 0;
+	NSInteger max = ([((RouteSection*)[_route lastObject]) type] == RouteTypeNone)?_route.count-1:_route.count;
+	for (int i=0; i<max; i++) {
+		total += [_route[i] seconds];
+	}
+	if (max < 1) {
+		_totalTimeLabel.text = @"";
+	} else {
+		_totalTimeLabel.text = [NSString stringWithFormat:@"%i:%.2i", total/60, total%60];
+	}
 }
 
 - (void)insertAddNewSectionViewToContainer {
@@ -105,6 +128,7 @@ static CurrentStatus STATUS, OLDSTATUS;
 		CGPoint offset = CGPointMake(_scrollView.contentSize.width - _scrollView.bounds.size.width, 0);
 		[self.scrollView setContentOffset:offset animated:true];//Offset to show the right-most icon
 	}
+	[self loadTotalTime];
 }
 
 - (void)removeAddNewSectionViewFromContainer {
@@ -119,7 +143,17 @@ static CurrentStatus STATUS, OLDSTATUS;
 	[_scrollView setContentSize:CGSizeMake(200*_route.count, 240)];//Set new size for scrollview's content
 }
 
+- (IBAction)unwindChooseSectionType:(UIStoryboardSegue *)sender {
+	_editableSectionView.section = _changeSectionType;
+	[_editableSectionView loadData];
+}
+
 - (void)openNewSectionView:(UIButton *)sender {
+	if (![[[[[sender superview] superview] superview] superview] isKindOfClass:[UIScrollView class]]) {
+		RouteSection *sect = ((RouteSectionView*)[[sender superview] superview]).section;
+		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:sect];
+		return;
+	}
 	_editSectionView.hidden = false;
 	[UIView animateWithDuration:.3 animations:^{
 		[_editSectionView.layer setOpacity:1];
@@ -135,10 +169,50 @@ static CurrentStatus STATUS, OLDSTATUS;
 	RouteSection *section = _route[SECTIONTOEDIT];
 	ISADDINGNEWSECTION = section.type==RouteTypeNone;
 	
+	
+	section = [[RouteSection alloc] initWithRouteType:RouteTypeRaceSit];
+	[_editableSectionView setSection:section];
+	[_editableSectionView loadData];
+	
 	if (!ISADDINGNEWSECTION) {
 //		load section to edit
-//		UITextField text = section.seconds etc
+		section.seconds = 25;
+	} else {
+		section.seconds = 25;
 	}
+}
+
+- (IBAction)hideKeyboard:(id)sender {
+	[_editableSectionView endEditing:true];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	if (component == 0) {
+		return 5;
+	} else {
+		return 12;
+	}
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	NSInteger number;
+	if (component == 0) {
+		number = row;
+	} else {
+		number = row*5;
+	}
+	return [NSString stringWithFormat:@"%ld", number];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	int mins = (int)[pickerView selectedRowInComponent:0];
+	int secs = (int)[pickerView selectedRowInComponent:1]*5;
+	[_editableSectionView.section setSeconds:(NSTimeInterval)(mins*60 + secs)];
+	_editableSectionView.secondsTextField.text = [NSString stringWithFormat:@"%i:%.2i", mins, secs];
 }
 
 - (IBAction)closeNewSectionView:(id)sender {
@@ -156,9 +230,9 @@ static CurrentStatus STATUS, OLDSTATUS;
 	}
 	
 	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
-	
 	[UIView animateWithDuration:.3 animations:^{
 		[_editSectionView.layer setOpacity:0];
+		[_editableSectionView.layer setOpacity:0];
 	} completion:^(BOOL finished) {
 		_editSectionView.hidden = false;
 	}];

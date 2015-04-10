@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9321C0A31AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321C0A21AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.m */; };
 		936FC9801AC367DB001C3A73 /* RouteSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 936FC97F1AC367DB001C3A73 /* RouteSectionView.m */; };
 		936FC9821AC367E6001C3A73 /* RouteSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936FC9811AC367E6001C3A73 /* RouteSectionView.xib */; };
 		937CF4641ABBA7D70071F5A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CF4631ABBA7D70071F5A2 /* main.m */; };
@@ -15,6 +16,7 @@
 		937CF46D1ABBA7D70071F5A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937CF46B1ABBA7D70071F5A2 /* Main.storyboard */; };
 		937CF46F1ABBA7D70071F5A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937CF46E1ABBA7D70071F5A2 /* Images.xcassets */; };
 		937CF47E1ABBA7D70071F5A2 /* SpinPalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CF47D1ABBA7D70071F5A2 /* SpinPalTests.m */; };
+		9396810E1AD749B4003D9BFA /* HiddenCursorTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9396810D1AD749B4003D9BFA /* HiddenCursorTextField.m */; };
 		939B55711AC0FF2900153C45 /* RouteSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 939B55701AC0FF2900153C45 /* RouteSection.m */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9321C0A11AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseSectionTypeTableViewController.h; sourceTree = "<group>"; };
+		9321C0A21AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseSectionTypeTableViewController.m; sourceTree = "<group>"; };
+		9321C0A71AD72BA4004D57A3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		936FC97E1AC367DB001C3A73 /* RouteSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteSectionView.h; sourceTree = "<group>"; };
 		936FC97F1AC367DB001C3A73 /* RouteSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSectionView.m; sourceTree = "<group>"; };
 		936FC9811AC367E6001C3A73 /* RouteSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteSectionView.xib; sourceTree = "<group>"; };
@@ -37,13 +42,14 @@
 		937CF4631ABBA7D70071F5A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		937CF4651ABBA7D70071F5A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		937CF4661ABBA7D70071F5A2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		937CF4681ABBA7D70071F5A2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		937CF4691ABBA7D70071F5A2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		937CF46C1ABBA7D70071F5A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		937CF46E1ABBA7D70071F5A2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		937CF4771ABBA7D70071F5A2 /* SpinPalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpinPalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937CF47C1ABBA7D70071F5A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		937CF47D1ABBA7D70071F5A2 /* SpinPalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinPalTests.m; sourceTree = "<group>"; };
+		9396810C1AD749B4003D9BFA /* HiddenCursorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiddenCursorTextField.h; sourceTree = "<group>"; };
+		9396810D1AD749B4003D9BFA /* HiddenCursorTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiddenCursorTextField.m; sourceTree = "<group>"; };
 		939B556F1AC0FF2900153C45 /* RouteSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteSection.h; sourceTree = "<group>"; };
 		939B55701AC0FF2900153C45 /* RouteSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,12 +95,16 @@
 			children = (
 				937CF4651ABBA7D70071F5A2 /* AppDelegate.h */,
 				937CF4661ABBA7D70071F5A2 /* AppDelegate.m */,
+				9396810C1AD749B4003D9BFA /* HiddenCursorTextField.h */,
+				9396810D1AD749B4003D9BFA /* HiddenCursorTextField.m */,
 				939B556F1AC0FF2900153C45 /* RouteSection.h */,
 				939B55701AC0FF2900153C45 /* RouteSection.m */,
 				936FC97E1AC367DB001C3A73 /* RouteSectionView.h */,
 				936FC97F1AC367DB001C3A73 /* RouteSectionView.m */,
 				936FC9811AC367E6001C3A73 /* RouteSectionView.xib */,
-				937CF4681ABBA7D70071F5A2 /* ViewController.h */,
+				9321C0A11AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.h */,
+				9321C0A21AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.m */,
+				9321C0A71AD72BA4004D57A3 /* ViewController.h */,
 				937CF4691ABBA7D70071F5A2 /* ViewController.m */,
 				937CF46B1ABBA7D70071F5A2 /* Main.storyboard */,
 				937CF46E1ABBA7D70071F5A2 /* Images.xcassets */,
@@ -231,8 +241,10 @@
 			files = (
 				936FC9801AC367DB001C3A73 /* RouteSectionView.m in Sources */,
 				937CF46A1ABBA7D70071F5A2 /* ViewController.m in Sources */,
+				9396810E1AD749B4003D9BFA /* HiddenCursorTextField.m in Sources */,
 				937CF4671ABBA7D70071F5A2 /* AppDelegate.m in Sources */,
 				939B55711AC0FF2900153C45 /* RouteSection.m in Sources */,
+				9321C0A31AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.m in Sources */,
 				937CF4641ABBA7D70071F5A2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

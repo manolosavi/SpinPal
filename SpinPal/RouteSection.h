@@ -34,5 +34,6 @@ typedef NS_ENUM(NSInteger, RouteType) {
 
 - (void)changeIcon;
 - (instancetype)initWithRouteType:(RouteType)type;
+- (UIImage *)getImage:(RouteType)type;
 
 @end

@@ -13,20 +13,25 @@
 - (void)loadData {
 	int mins = _section.seconds/60;
 	int secs = (int)_section.seconds%60;
-	_secondsLabel.text = [NSString stringWithFormat:@"%i:%i", mins, secs];
-	_rpmLabel.text = [NSString stringWithFormat:@"%li", (long)_section.rpm];
-	_jumpCountLabel.text = [NSString stringWithFormat:@"%li", (long)_section.jumpCount];
-	_rightSideLabel.text = (_section.rightSide)?@"R":@"L";
+	_secondsTextField.text = [NSString stringWithFormat:@"%i:%.2i", mins, secs];
+	_rpmTextField.text = [NSString stringWithFormat:@"%li", (long)_section.rpm];
+	_jumpCountTextField.text = [NSString stringWithFormat:@"%li", (long)_section.jumpCount];
+	[_rightSideButton setTitle:(_section.rightSide)?@"R":@"L" forState:UIControlStateNormal];
 	[_iconButton setBackgroundImage:_section.icon forState:UIControlStateNormal];
 	[self hideLabels];
 }
 
+- (IBAction)switchLeftRight:(UIButton *)sender {
+	_section.rightSide = !_section.rightSide;
+	[_rightSideButton setTitle:(_section.rightSide)?@"R":@"L" forState:UIControlStateNormal];
+}
+
 - (void)hideLabels {
-	_secondsLabel.hidden = _section.type==RouteTypeNone;
-	_rpmLabel.hidden = _section.type==RouteTypeNone;
+	_secondsTextField.hidden = _section.type==RouteTypeNone;
+	_rpmTextField.hidden = _section.type==RouteTypeNone;
 	
-	_jumpCountLabel.hidden = _section.type!=RouteTypeJump;
-	_rightSideLabel.hidden = _section.type!=RouteTypeJump;
+	_jumpCountTextField.hidden = _section.type!=RouteTypeJump;
+	_rightSideButton.hidden = _section.type!=RouteTypeJump;
 }
 
 //Ignore undeclared selector warnings
