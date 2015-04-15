@@ -232,6 +232,15 @@ static int currentRunningSection;
 }
 
 - (IBAction)closeNewSectionView:(id)sender {
+	if (_editableSectionView.section.seconds < 5) {
+		[[[UIAlertView alloc] initWithTitle:@"Section can't be 0 seconds long"
+									message:@"Please change the duration of the section and try again."
+								   delegate:nil
+						  cancelButtonTitle:@"OK"
+						  otherButtonTitles:nil] show];
+		[_editableSectionView.secondsTextField becomeFirstResponder];
+		return;
+	}
 //	Edit old "new section button" info
 	RouteSection *section = _route[SECTIONTOEDIT];
 	section = _editableSectionView.section;
@@ -243,6 +252,8 @@ static int currentRunningSection;
 	if (ISADDINGNEWSECTION) {
 //		Add new "new section button"
 		[self insertAddNewSectionViewToContainer];
+	} else {
+		[self loadTotalTime];
 	}
 	
 	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
