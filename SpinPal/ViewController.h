@@ -11,7 +11,7 @@
 #import "RouteSectionView.h"
 #import "ChooseSectionTypeTableViewController.h"
 
-@interface ViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface ViewController : UIViewController <UIAlertViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 typedef NS_ENUM(NSInteger, CurrentStatus) {
 	CurrentStatusEmpty		= -1,
@@ -27,10 +27,13 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 @property (strong) UIButton *leftButton;
 @property (strong) UIButton *rightButton;
 @property (strong) RouteSection *changeSectionType;
-@property (strong) UIPickerView *pickerView;
+@property (strong) UIPickerView *secondsPickerView;
+@property (strong) UIPickerView *jumpCountPickerView;
 
 @property (weak, nonatomic) IBOutlet RouteSectionView *editableSectionView;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *editSectionView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickerConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *totalTimeLabel;
 
 @end

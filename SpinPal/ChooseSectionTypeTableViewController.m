@@ -20,11 +20,39 @@
     [super viewDidLoad];
 	
 	NSLog(@"%ld", (long)_section.type);
-	_titles = [[NSArray alloc] initWithObjects:@"Straight Stand", @"Straight Sit", @"Jump", @"Uphill Stand", @"Uphill Sit", @"Race Stand", @"Race Sit", @"Sprint", @"Sprint Uphill", nil];
+	_titles = [[NSArray alloc] initWithObjects:@"Straight Stand", @"Straight Sit", @"Jump", @"Jump", @"Jump", @"Jump", @"Uphill Stand", @"Uphill Stand", @"Uphill Stand", @"Uphill Stand", @"Uphill Sit", @"Uphill Sit", @"Uphill Sit", @"Uphill Sit", @"Race Stand", @"Race Sit", @"Sprint", @"Sprint Uphill", nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (NSInteger)getSectionType:(NSInteger)index {
+	NSInteger type;
+	if (index < 2) {
+		type = index;
+	} else if (index < 6) {
+		type = 2;
+	} else if (index < 10) {
+		type = 3;
+	} else if (index < 14) {
+		type = 4;
+	} else {
+		type = index-9;
+	}
+	return type;
+}
+
+- (NSInteger)getIntensity:(NSInteger)index {
+	NSInteger intensity = 0;
+	if (index >= 2 && index <= 5) {
+		intensity = index-1;
+	} else if (index >= 6 && index <= 9) {
+		intensity = index-5;
+	} else if (index >= 10 && index <= 13) {
+		intensity = index-9;
+	}
+	return intensity;
 }
 
 #pragma mark - Table view data source
@@ -34,14 +62,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 9;
+    return _titles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 //	Configure the cell...
 	cell.textLabel.text = _titles[indexPath.row];
-	cell.imageView.image = [[RouteSection alloc] getImage:indexPath.row];
+	RouteSection *r = [[RouteSection alloc] initWithRouteType:[self getSectionType:indexPath.row]];
+	r.intensity = [self getIntensity:indexPath.row];
+	cell.imageView.image = [r getImage:r.type];
     return cell;
 }
 
@@ -50,7 +80,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	_section = [[RouteSection alloc] initWithRouteType:indexPath.row];
+	_section = [[RouteSection alloc] initWithRouteType:[self getSectionType:indexPath.row]];
+	_section.intensity = [self getIntensity:indexPath.row];
+	[_section changeIcon];
 	[self performSegueWithIdentifier:@"unwindChooseSectionType" sender:nil];
 }
 

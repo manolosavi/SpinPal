@@ -26,7 +26,8 @@ typedef NS_ENUM(NSInteger, RouteType) {
 
 @property NSTimeInterval seconds;
 @property NSInteger rpm;
-@property NSInteger jumpCount;//1,2,4,8
+@property NSInteger jumpCount;
+@property NSInteger intensity;
 @property BOOL rightSide;
 @property RouteType type;
 @property (strong) UIImage *icon;

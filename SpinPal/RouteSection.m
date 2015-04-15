@@ -19,11 +19,38 @@
 		case RouteTypeStraightSit:
 			return [UIImage imageNamed:@"straightSit"];
 		case RouteTypeJump:
-			return [UIImage imageNamed:@"jump"];
+			switch (self.intensity) {
+				case 1:
+					return [UIImage imageNamed:@"jump1"];
+				case 2:
+					return [UIImage imageNamed:@"jump2"];
+				case 3:
+					return [UIImage imageNamed:@"jump3"];
+				default:
+					return [UIImage imageNamed:@"jump"];
+			}
 		case RouteTypeUpStand:
-			return [UIImage imageNamed:@"upStand"];
+			switch (self.intensity) {
+				case 1:
+					return [UIImage imageNamed:@"upStand1"];
+				case 2:
+					return [UIImage imageNamed:@"upStand2"];
+				case 3:
+					return [UIImage imageNamed:@"upStand3"];
+				default:
+					return [UIImage imageNamed:@"upStand"];
+			}
 		case RouteTypeUpSit:
-			return [UIImage imageNamed:@"upSit"];
+			switch (self.intensity) {
+				case 1:
+					return [UIImage imageNamed:@"upSit1"];
+				case 2:
+					return [UIImage imageNamed:@"upSit2"];
+				case 3:
+					return [UIImage imageNamed:@"upSit3"];
+				default:
+					return [UIImage imageNamed:@"upSit"];
+			}
 		case RouteTypeRaceStand:
 			return [UIImage imageNamed:@"raceStand"];
 		case RouteTypeRaceSit:
@@ -52,6 +79,7 @@
 		self.seconds = [decoder decodeIntegerForKey:@"seconds"];
 		self.rpm = [decoder decodeIntegerForKey:@"rpm"];
 		self.jumpCount = [decoder decodeIntegerForKey:@"jumpCount"];
+		self.intensity = [decoder decodeIntegerForKey:@"intensity"];
 		self.rightSide = [decoder decodeBoolForKey:@"rightSide"];
 		self.type = [decoder decodeIntegerForKey:@"type"];
 		self.icon = [self getImage:self.type];
@@ -63,6 +91,7 @@
 	[encoder encodeInteger:self.seconds forKey:@"seconds"];
 	[encoder encodeInteger:self.rpm forKey:@"rpm"];
 	[encoder encodeInteger:self.jumpCount forKey:@"jumpCount"];
+	[encoder encodeInteger:self.intensity forKey:@"intensity"];
 	[encoder encodeBool:self.rightSide forKey:@"rightSide"];
 	[encoder encodeInteger:self.type forKey:@"type"];
 }
