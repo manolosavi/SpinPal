@@ -219,7 +219,12 @@ static CurrentStatus STATUS, OLDSTATUS;
 //	Edit old "new section button" info
 	RouteSection *section = _route[SECTIONTOEDIT];
 //	section.rpm = UITextField…;
-	section.type = RouteTypeStraightStand;
+    
+    section.type = _editableSectionView.section.type;
+    section.rpm = _editableSectionView.section.rpm;
+    section.seconds = _editableSectionView.section.seconds;
+    section.rightSide = _editableSectionView.section.rightSide;
+    section.jumpCount = _editableSectionView.section.jumpCount;
 	[section changeIcon];
 	[_routeViews[SECTIONTOEDIT] setSection:section];
 	[_routeViews[SECTIONTOEDIT] loadData];
