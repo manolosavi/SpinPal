@@ -59,6 +59,8 @@ static int currentRunningSection;
 	_editableSectionView.rightSideButton.userInteractionEnabled = true;
 	_editableSectionView.jumpCountTextField.userInteractionEnabled = true;
 	_editableSectionView.secondsTextField.userInteractionEnabled = true;
+	_editableSectionView.rpmTextField.userInteractionEnabled = true;
+	[_editableSectionView.rpmTextField addTarget:self action:@selector(rpmDidChange) forControlEvents:UIControlEventEditingChanged];
 	_secondsPickerView = [[UIPickerView alloc] init];
 	_secondsPickerView.delegate = self;
 	_secondsPickerView.dataSource = self;
@@ -69,7 +71,6 @@ static int currentRunningSection;
 	_jumpCountPickerView.dataSource = self;
 	[_jumpCountPickerView setBackgroundColor:[UIColor colorWithHue:33/360. saturation:.03 brightness:.9 alpha:1]];
 	_editableSectionView.jumpCountTextField.inputView = _jumpCountPickerView;
-	_editableSectionView.rpmTextField.userInteractionEnabled = true;
 	[_closeButton setBackgroundColor:green];
 	
 	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
@@ -162,11 +163,6 @@ static int currentRunningSection;
 		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:sect];
 		return;
 	}
-	_editSectionView.hidden = false;
-	[UIView animateWithDuration:.3 animations:^{
-		[_editSectionView.layer setOpacity:1];
-		[_editableSectionView.layer setOpacity:1];
-	}];
 	
 	for (int i=0; i<_route.count; i++) {
 		if ([_routeViews[i] iconButton] == sender) {
@@ -178,17 +174,22 @@ static int currentRunningSection;
 	RouteSection *section = _route[SECTIONTOEDIT];
 	ISADDINGNEWSECTION = section.type==RouteTypeNone;
 	
-	
-	section = [[RouteSection alloc] initWithRouteType:RouteTypeRaceSit];
-	[_editableSectionView setSection:section];
-	[_editableSectionView loadData];
-	
 	if (!ISADDINGNEWSECTION) {
 //		load section to edit
-		section.seconds = 25;
+		[_editableSectionView setSection:section];
+		[_editableSectionView.section changeIcon];
+		[_editableSectionView loadData];
 	} else {
-		section.seconds = 25;
+		section.type = RouteTypeStraightStand;
+		[section changeIcon];
+		[_editableSectionView setSection:section];
+		[_editableSectionView loadData];
 	}
+	_editSectionView.hidden = false;
+	[UIView animateWithDuration:.3 animations:^{
+		[_editSectionView.layer setOpacity:1];
+		[_editableSectionView.layer setOpacity:1];
+	}];
 }
 
 - (IBAction)hideKeyboard:(id)sender {
@@ -233,14 +234,9 @@ static int currentRunningSection;
 - (IBAction)closeNewSectionView:(id)sender {
 //	Edit old "new section button" info
 	RouteSection *section = _route[SECTIONTOEDIT];
-//	section.rpm = UITextField…;
-    
-    section.type = _editableSectionView.section.type;
-    section.rpm = _editableSectionView.section.rpm;
-    section.seconds = _editableSectionView.section.seconds;
-    section.rightSide = _editableSectionView.section.rightSide;
-    section.jumpCount = _editableSectionView.section.jumpCount;
+	section = _editableSectionView.section;
 	[section changeIcon];
+	_route[SECTIONTOEDIT] = section;
 	[_routeViews[SECTIONTOEDIT] setSection:section];
 	[_routeViews[SECTIONTOEDIT] loadData];
 	
@@ -498,8 +494,15 @@ static int currentRunningSection;
 		[_editableSectionView.section setSeconds:(NSTimeInterval)(mins*60 + secs)];
 		_editableSectionView.secondsTextField.text = [NSString stringWithFormat:@"%ld:%.2ld", mins, secs];
 	} else {
+		[_editableSectionView.section setJumpCount:pow(2, row)];
 		_editableSectionView.jumpCountTextField.text = [NSString stringWithFormat:@"%.0f", pow(2, row)];
 	}
+}
+
+- (void)rpmDidChange {
+//	Remove leading zeros.
+	_editableSectionView.rpmTextField.text = [_editableSectionView.rpmTextField.text stringByReplacingOccurrencesOfString:@"^0+" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, _editableSectionView.rpmTextField.text.length)];
+	[_editableSectionView.section setRpm:[_editableSectionView.rpmTextField.text integerValue]];
 }
 
 @end
