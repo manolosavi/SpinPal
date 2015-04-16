@@ -29,7 +29,7 @@
                                     <constraint firstAttribute="width" id="uMp-ut-JQW"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVM-8b-fXm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVM-8b-fXm">
                                 <rect key="frame" x="0.0" y="50" width="600" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="p2S-PN-RnS"/>
@@ -67,29 +67,12 @@
                                                 <constraint firstAttribute="width" constant="160" id="PRM-eS-ayA"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTE-69-70a">
-                                            <rect key="frame" x="0.0" y="520" width="600" height="80"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="80" id="LWd-P7-34l"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="25"/>
-                                            <state key="normal" title="Save">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="closeNewSectionView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="SX6-4G-BY6"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                 </view>
                                 <constraints>
                                     <constraint firstItem="yRn-fc-KrB" firstAttribute="height" secondItem="f58-QY-WaI" secondAttribute="height" id="2Y0-7X-PnA"/>
-                                    <constraint firstItem="gTE-69-70a" firstAttribute="width" secondItem="f58-QY-WaI" secondAttribute="width" id="6Bn-5R-voz"/>
                                     <constraint firstItem="yRn-fc-KrB" firstAttribute="width" secondItem="f58-QY-WaI" secondAttribute="width" id="Ari-P5-kuf"/>
-                                    <constraint firstAttribute="bottom" secondItem="gTE-69-70a" secondAttribute="bottom" id="IUD-3A-ByR"/>
                                     <constraint firstAttribute="centerX" secondItem="cK9-tZ-Yg7" secondAttribute="centerX" id="PFS-2r-nu8"/>
-                                    <constraint firstItem="gTE-69-70a" firstAttribute="centerX" secondItem="f58-QY-WaI" secondAttribute="centerX" id="RH2-b1-h8o"/>
                                     <constraint firstItem="yRn-fc-KrB" firstAttribute="centerX" secondItem="f58-QY-WaI" secondAttribute="centerX" id="Xa3-tE-5JE"/>
                                     <constraint firstItem="yRn-fc-KrB" firstAttribute="centerY" secondItem="f58-QY-WaI" secondAttribute="centerY" id="c0r-cA-tcT"/>
                                     <constraint firstAttribute="centerY" secondItem="cK9-tZ-Yg7" secondAttribute="centerY" constant="40" id="sKg-nq-uT5"/>
@@ -118,7 +101,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="closeButton" destination="gTE-69-70a" id="kgG-2e-2pS"/>
                         <outlet property="editSectionView" destination="f58-QY-WaI" id="8kz-94-RLz"/>
                         <outlet property="editableSectionView" destination="cK9-tZ-Yg7" id="Qvf-7m-WcZ"/>
                         <outlet property="scrollView" destination="rij-k1-jn8" id="nzP-PM-p2A"/>

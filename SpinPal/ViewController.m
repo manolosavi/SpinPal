@@ -32,14 +32,16 @@ static int currentRunningSection;
 	_editSectionView.hidden = true;
 	[_editSectionView.layer setOpacity:0];
 	
-	_route = [self getRoute];
-	
 	CGRect frame = CGRectMake(0, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
 	_leftButton = [[UIButton alloc] initWithFrame:frame];
 	[_leftButton setBackgroundColor:green];
+	_saveButton = [[UIButton alloc] initWithFrame:frame];
+	[_saveButton setBackgroundColor:green];
 	frame = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
 	_rightButton = [[UIButton alloc] initWithFrame:frame];
 	[_rightButton setBackgroundColor:red];
+	_deleteButton = [[UIButton alloc] initWithFrame:frame];
+	[_deleteButton setBackgroundColor:red];
 	[self.view insertSubview:_leftButton atIndex:0];
 	[self.view insertSubview:_rightButton atIndex:0];
 	[_leftButton addTarget:self action:@selector(leftButtonTapped) forControlEvents:UIControlEventTouchUpInside];
@@ -71,12 +73,20 @@ static int currentRunningSection;
 	_jumpCountPickerView.dataSource = self;
 	[_jumpCountPickerView setBackgroundColor:[UIColor colorWithHue:33/360. saturation:.03 brightness:.9 alpha:1]];
 	_editableSectionView.jumpCountTextField.inputView = _jumpCountPickerView;
-	[_closeButton setBackgroundColor:green];
-	
-	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
+	[_saveButton setTitle:@"Save" forState:UIControlStateNormal];
+	[_deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+	[_saveButton.titleLabel setFont:font];
+	[_saveButton.titleLabel setTextColor:[UIColor whiteColor]];
+	[_deleteButton.titleLabel setFont:font];
+	[_deleteButton.titleLabel setTextColor:[UIColor whiteColor]];
+	[_editSectionView.contentView insertSubview:_saveButton atIndex:_editSectionView.contentView.subviews.count];
+	[_editSectionView.contentView insertSubview:_deleteButton atIndex:_editSectionView.contentView.subviews.count];
+	[_saveButton addTarget:self action:@selector(closeNewSectionView) forControlEvents:UIControlEventTouchUpInside];
+	[_deleteButton addTarget:self action:@selector(askDeleteSection) forControlEvents:UIControlEventTouchUpInside];
 	
 	_route = [self getRoute];
-	[self loadViewsIntoContainer];
+	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
+//	[self loadViewsIntoContainer];
 //	For debugging, resets on launch
 	[self resetRoute];
 }
@@ -84,7 +94,11 @@ static int currentRunningSection;
 - (void)loadViewsIntoContainer {
 	CGRect frame = CGRectMake(0, 0, self.view.frame.size.width-200 + 200*_route.count, 240);
 	
-	_routeViewsContainer = [[UIView alloc] initWithFrame:frame];
+	if (!_routeViewsContainer) {
+		_routeViewsContainer = [[UIView alloc] initWithFrame:frame];
+	} else {
+		[_routeViewsContainer setFrame:frame];
+	}
 	[_scrollView insertSubview:_routeViewsContainer atIndex:0];
 	[_scrollView setContentSize:_routeViewsContainer.frame.size];
 	_routeViews = [[NSMutableArray alloc] init];
@@ -158,7 +172,6 @@ static int currentRunningSection;
 	_editableSectionView.section.seconds = r.seconds;
 	_editableSectionView.section.rpm = r.rpm;
 	_editableSectionView.section.jumpCount = r.jumpCount;
-	_editableSectionView.section.intensity = r.intensity;
 	_editableSectionView.section.rightSide = r.rightSide;
 	[_editableSectionView loadData];
 }
@@ -181,17 +194,35 @@ static int currentRunningSection;
 	
 	if (ISADDINGNEWSECTION) {
 		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:nil];
+		[self hideDeleteButton];
 	} else {
 //		load section to edit
 		[_editableSectionView setSection:section];
 		[_editableSectionView.section changeIcon];
 		[_editableSectionView loadData];
+		[self showDeleteButton];
 	}
 	_editSectionView.hidden = false;
 	[UIView animateWithDuration:.3 animations:^{
 		[_editSectionView.layer setOpacity:1];
 		[_editableSectionView.layer setOpacity:1];
 	}];
+}
+
+- (void)hideDeleteButton {
+	CGRect lFrame = CGRectMake(0, self.view.frame.size.height-80, self.view.frame.size.width, 80);
+	CGRect rFrame = CGRectMake(self.view.frame.size.width, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
+	
+	[_saveButton setFrame:lFrame];
+	[_deleteButton setFrame:rFrame];
+}
+
+- (void)showDeleteButton {
+	CGRect lFrame = CGRectMake(0, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
+	CGRect rFrame = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height-80, self.view.frame.size.width/2, 80);
+	
+	[_saveButton setFrame:lFrame];
+	[_deleteButton setFrame:rFrame];
 }
 
 - (IBAction)hideKeyboard:(id)sender {
@@ -233,7 +264,7 @@ static int currentRunningSection;
 	}
 }
 
-- (IBAction)closeNewSectionView:(id)sender {
+- (void)closeNewSectionView {
 	if (_editableSectionView.section.seconds < 5) {
 		[[[UIAlertView alloc] initWithTitle:@"Section can't be 0 seconds long"
 									message:@"Please change the duration of the section and try again."
@@ -246,6 +277,7 @@ static int currentRunningSection;
 //	Edit old "new section button" info
 	RouteSection *section = _route[SECTIONTOEDIT];
 	section = _editableSectionView.section;
+	section.intensity = _editableSectionView.section.intensity;
 	[section changeIcon];
 	_route[SECTIONTOEDIT] = section;
 	[_routeViews[SECTIONTOEDIT] setSection:section];
@@ -257,6 +289,33 @@ static int currentRunningSection;
 	} else {
 		[self loadTotalTime];
 	}
+	
+	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
+	[UIView animateWithDuration:.3 animations:^{
+		[_editSectionView.layer setOpacity:0];
+		[_editableSectionView.layer setOpacity:0];
+	} completion:^(BOOL finished) {
+		_editSectionView.hidden = false;
+	}];
+}
+
+- (void)askDeleteSection {
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?"
+													message:@"This will delete the selected section. You can't undo this."
+												   delegate:self
+										  cancelButtonTitle:@"Cancel"
+										  otherButtonTitles:@"Delete", nil];
+	alert.tag = 1;
+	[alert show];
+}
+
+- (void)deleteSection {
+	[_route removeObjectAtIndex:SECTIONTOEDIT];
+	for (int i=0; i<_routeViews.count; i++) {
+		[_routeViews[i] removeFromSuperview];
+	}
+	[_routeViews removeAllObjects];
+	[self loadViewsIntoContainer];
 	
 	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
 	[UIView animateWithDuration:.3 animations:^{
@@ -290,9 +349,9 @@ static int currentRunningSection;
 	switch (STATUS) {
 		case CurrentStatusEmpty://no button
 			break;
-		case CurrentStatusReady:{//new
+		case CurrentStatusReady://new
 			[self askResetRoute];
-			}break;
+			break;
 		case CurrentStatusRunning://no button
 			break;
 		case CurrentStatusPaused://stop
@@ -433,7 +492,6 @@ static int currentRunningSection;
 		[_scrollView.layer setOpacity:0];
 	} completion:^(BOOL finished) {
 		[_route removeAllObjects];
-		[_routeViewsContainer removeFromSuperview];
 		RouteSection *section = [[RouteSection alloc] initWithRouteType:RouteTypeNone];
 		[_route addObject:section];
 		[self saveRoute];
@@ -466,7 +524,11 @@ static int currentRunningSection;
 	if (buttonIndex == [alertView cancelButtonIndex]){
 		
 	} else {
-		[self resetRoute];
+		if (alertView.tag == 1) {
+			[self deleteSection];
+		} else {
+			[self resetRoute];
+		}
 	}
 }
 

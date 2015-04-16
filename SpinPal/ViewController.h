@@ -29,10 +29,11 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 @property (strong) RouteSection *changeSectionType;
 @property (strong) UIPickerView *secondsPickerView;
 @property (strong) UIPickerView *jumpCountPickerView;
+@property (strong) UIButton *saveButton;
+@property (strong) UIButton *deleteButton;
 
 @property (weak, nonatomic) IBOutlet RouteSectionView *editableSectionView;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *editSectionView;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *totalTimeLabel;
 
