@@ -81,7 +81,7 @@ static int currentRunningSection;
 	[_deleteButton.titleLabel setTextColor:[UIColor whiteColor]];
 	[_editSectionView.contentView insertSubview:_saveButton atIndex:_editSectionView.contentView.subviews.count];
 	[_editSectionView.contentView insertSubview:_deleteButton atIndex:_editSectionView.contentView.subviews.count];
-	[_saveButton addTarget:self action:@selector(closeNewSectionView) forControlEvents:UIControlEventTouchUpInside];
+	[_saveButton addTarget:self action:@selector(closeEditSectionView) forControlEvents:UIControlEventTouchUpInside];
 	[_deleteButton addTarget:self action:@selector(askDeleteSection) forControlEvents:UIControlEventTouchUpInside];
 	
 	_route = [self getRoute];
@@ -116,7 +116,7 @@ static int currentRunningSection;
 
 - (void)loadTotalTime {
 	int total = 0;
-	NSInteger max = ([((RouteSection*)[_route lastObject]) type] == RouteTypeNone)?_route.count-1:_route.count;
+	NSInteger max = ([((RouteSection*)[_route lastObject]) type] == SectionTypeNone)?_route.count-1:_route.count;
 	for (int i=0; i<max; i++) {
 		total += [_route[i] seconds];
 		[_routeViews[i] loadData];
@@ -136,7 +136,7 @@ static int currentRunningSection;
 	frame = CGRectMake(offset+200*_route.count, 0, 160, 240);//Make frame for section
 	RouteSectionView *view = [[RouteSectionView alloc] initWithFrame:frame];
 	[view.layer setOpacity:0];
-	RouteSection *section = [[RouteSection alloc] initWithRouteType:RouteTypeNone];
+	RouteSection *section = [[RouteSection alloc] initWithSectionType:SectionTypeNone];
 	[view setSection:section];//Set view's section
 	[view loadData];//Load data from section
 	[_route addObject:section];//Add section to array of sections
@@ -155,7 +155,7 @@ static int currentRunningSection;
 
 - (void)removeAddNewSectionViewFromContainer {
 	RouteSectionView *lastView = [_routeViews lastObject];
-	if ([[lastView section] type] == RouteTypeNone) {
+	if ([[lastView section] type] == SectionTypeNone) {
 		CGRect frame = _routeViewsContainer.frame;
 		frame.size.width = frame.size.width-200;
 		[_routeViewsContainer setFrame:frame];
@@ -176,7 +176,7 @@ static int currentRunningSection;
 	[_editableSectionView loadData];
 }
 
-- (void)openNewSectionView:(UIButton *)sender {
+- (void)openEditSectionView:(UIButton *)sender {
 	if (sender == _editableSectionView.iconButton) {
 		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:nil];
 		return;
@@ -190,7 +190,7 @@ static int currentRunningSection;
 	}
 	
 	RouteSection *section = _route[SECTIONTOEDIT];
-	ISADDINGNEWSECTION = section.type==RouteTypeNone;
+	ISADDINGNEWSECTION = section.type==SectionTypeNone;
 	
 	if (ISADDINGNEWSECTION) {
 		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:nil];
@@ -264,7 +264,7 @@ static int currentRunningSection;
 	}
 }
 
-- (void)closeNewSectionView {
+- (void)closeEditSectionView {
 	if (_editableSectionView.section.seconds < 5) {
 		[[[UIAlertView alloc] initWithTitle:@"Section can't be 0 seconds long"
 									message:@"Please change the duration of the section and try again."
@@ -429,7 +429,7 @@ static int currentRunningSection;
 				[_scrollView setContentOffset:offset animated:true];
 				[UIView animateWithDuration:.2 animations:^{
 //					Hide it first, delete after delay to avoid problems with scroll offset
-					if ([[(RouteSectionView*)[_routeViews lastObject] section] type] == RouteTypeNone) {
+					if ([[(RouteSectionView*)[_routeViews lastObject] section] type] == SectionTypeNone) {
 						[[[_routeViews lastObject] layer] setOpacity:0];
 					}
 				}];
@@ -492,7 +492,7 @@ static int currentRunningSection;
 		[_scrollView.layer setOpacity:0];
 	} completion:^(BOOL finished) {
 		[_route removeAllObjects];
-		RouteSection *section = [[RouteSection alloc] initWithRouteType:RouteTypeNone];
+		RouteSection *section = [[RouteSection alloc] initWithSectionType:SectionTypeNone];
 		[_route addObject:section];
 		[self saveRoute];
 		[self loadViewsIntoContainer];

@@ -69,7 +69,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 //	Configure the cell...
 	cell.textLabel.text = _titles[indexPath.row];
-	RouteSection *r = [[RouteSection alloc] initWithRouteType:[self getSectionType:indexPath.row]];
+	RouteSection *r = [[RouteSection alloc] initWithSectionType:[self getSectionType:indexPath.row]];
 	r.intensity = [self getIntensity:indexPath.row];
 	cell.imageView.image = [r getImage:r.type];
     return cell;
@@ -80,7 +80,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	_section = [[RouteSection alloc] initWithRouteType:[self getSectionType:indexPath.row]];
+	_section = [[RouteSection alloc] initWithSectionType:[self getSectionType:indexPath.row]];
 	_section.intensity = [self getIntensity:indexPath.row];
 	[_section changeIcon];
 	[self performSegueWithIdentifier:@"unwindChooseSectionType" sender:nil];

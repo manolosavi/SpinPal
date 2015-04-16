@@ -12,6 +12,21 @@
 
 @interface ChooseSectionTypeTableViewController : UITableViewController
 
+///Section to edit.
 @property RouteSection *section;
+
+/**
+ Returns the appropiate @c NSInteger for the section type based on the index sent.
+ @param index Selected row in the TableView.
+ @return Appropiate section type as NSInteger.
+ */
+- (NSInteger)getSectionType:(NSInteger)index;
+
+/**
+ When appropiate, returns the @c intensity value for the section type based on the index sent.
+ @param index Selected row in the @c TableView.
+ @return Intensity value for the section as @c NSInteger.
+ */
+- (NSInteger)getIntensity:(NSInteger)index;
 
 @end

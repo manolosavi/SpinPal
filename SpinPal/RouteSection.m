@@ -10,15 +10,15 @@
 
 @implementation RouteSection
 
-- (UIImage *)getImage:(RouteType)type {
+- (UIImage *)getImage:(SectionType)type {
 	switch (type) {
-		case RouteTypeNone:
+		case SectionTypeNone:
 			return [UIImage imageNamed:@"addSection"];
-		case RouteTypeStraightStand:
+		case SectionTypeStraightStand:
 			return [UIImage imageNamed:@"straightStand"];
-		case RouteTypeStraightSit:
+		case SectionTypeStraightSit:
 			return [UIImage imageNamed:@"straightSit"];
-		case RouteTypeJump:
+		case SectionTypeJump:
 			switch (self.intensity) {
 				case 1:
 					return [UIImage imageNamed:@"jump1"];
@@ -29,7 +29,7 @@
 				default:
 					return [UIImage imageNamed:@"jump"];
 			}
-		case RouteTypeUpStand:
+		case SectionTypeUpStand:
 			switch (self.intensity) {
 				case 1:
 					return [UIImage imageNamed:@"upStand1"];
@@ -40,7 +40,7 @@
 				default:
 					return [UIImage imageNamed:@"upStand"];
 			}
-		case RouteTypeUpSit:
+		case SectionTypeUpSit:
 			switch (self.intensity) {
 				case 1:
 					return [UIImage imageNamed:@"upSit1"];
@@ -51,13 +51,13 @@
 				default:
 					return [UIImage imageNamed:@"upSit"];
 			}
-		case RouteTypeRaceStand:
+		case SectionTypeRaceStand:
 			return [UIImage imageNamed:@"raceStand"];
-		case RouteTypeRaceSit:
+		case SectionTypeRaceSit:
 			return [UIImage imageNamed:@"raceSit"];
-		case RouteTypeSprint:
+		case SectionTypeSprint:
 			return [UIImage imageNamed:@"sprint"];
-		case RouteTypeSprintUp:
+		case SectionTypeSprintUp:
 			return [UIImage imageNamed:@"sprintUp"];
 	}
 }
@@ -66,7 +66,7 @@
 	self.icon = [self getImage:_type];
 }
 
-- (instancetype)initWithRouteType:(RouteType)type {
+- (instancetype)initWithSectionType:(SectionType)type {
 	if (self = [super init]) {
 		self.type = type;
 		self.icon = [self getImage:type];

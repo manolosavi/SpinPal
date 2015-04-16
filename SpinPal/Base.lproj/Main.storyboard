@@ -110,6 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="197" y="355"/>
         </scene>
         <!--Choose Section Type-->
         <scene sceneID="Gm8-s5-4ma">

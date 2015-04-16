@@ -27,11 +27,11 @@
 }
 
 - (void)hideLabels {
-	_secondsTextField.hidden = _section.type==RouteTypeNone;
-	_rpmTextField.hidden = _section.type==RouteTypeNone;
+	_secondsTextField.hidden = _section.type==SectionTypeNone;
+	_rpmTextField.hidden = _section.type==SectionTypeNone;
 	
-	_jumpCountTextField.hidden = _section.type!=RouteTypeJump;
-	_rightSideButton.hidden = _section.type!=RouteTypeJump;
+	_jumpCountTextField.hidden = _section.type!=SectionTypeJump;
+	_rightSideButton.hidden = _section.type!=SectionTypeJump;
 }
 
 //Ignore undeclared selector warnings
@@ -41,7 +41,7 @@
 	[[NSBundle mainBundle] loadNibNamed:@"RouteSectionView" owner:self options:nil];
 	self.bounds = self.view.bounds;
 	
-	[self.iconButton addTarget:[self superview] action:@selector(openNewSectionView:) forControlEvents:UIControlEventTouchUpInside];
+	[self.iconButton addTarget:[self superview] action:@selector(openEditSectionView:) forControlEvents:UIControlEventTouchUpInside];
 	
 	[self addSubview:self.view];
 }
