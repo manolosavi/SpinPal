@@ -18,6 +18,8 @@
 		937CF47E1ABBA7D70071F5A2 /* SpinPalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CF47D1ABBA7D70071F5A2 /* SpinPalTests.m */; };
 		9396810E1AD749B4003D9BFA /* HiddenCursorTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9396810D1AD749B4003D9BFA /* HiddenCursorTextField.m */; };
 		939B55711AC0FF2900153C45 /* RouteSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 939B55701AC0FF2900153C45 /* RouteSection.m */; };
+		93E3B1FE1AE03F6F008985C2 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E3B1FD1AE03F6F008985C2 /* NavigationViewController.m */; };
+		93E3B2011AE04039008985C2 /* OverviewCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E3B2001AE04039008985C2 /* OverviewCollectionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,10 @@
 		9396810D1AD749B4003D9BFA /* HiddenCursorTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiddenCursorTextField.m; sourceTree = "<group>"; };
 		939B556F1AC0FF2900153C45 /* RouteSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteSection.h; sourceTree = "<group>"; };
 		939B55701AC0FF2900153C45 /* RouteSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSection.m; sourceTree = "<group>"; };
+		93E3B1FC1AE03F6F008985C2 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		93E3B1FD1AE03F6F008985C2 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		93E3B1FF1AE04039008985C2 /* OverviewCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewCollectionViewController.h; sourceTree = "<group>"; };
+		93E3B2001AE04039008985C2 /* OverviewCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewCollectionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +108,12 @@
 				936FC97E1AC367DB001C3A73 /* RouteSectionView.h */,
 				936FC97F1AC367DB001C3A73 /* RouteSectionView.m */,
 				936FC9811AC367E6001C3A73 /* RouteSectionView.xib */,
+				93E3B1FC1AE03F6F008985C2 /* NavigationViewController.h */,
+				93E3B1FD1AE03F6F008985C2 /* NavigationViewController.m */,
 				9321C0A11AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.h */,
 				9321C0A21AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.m */,
+				93E3B1FF1AE04039008985C2 /* OverviewCollectionViewController.h */,
+				93E3B2001AE04039008985C2 /* OverviewCollectionViewController.m */,
 				9321C0A71AD72BA4004D57A3 /* ViewController.h */,
 				937CF4691ABBA7D70071F5A2 /* ViewController.m */,
 				937CF46B1ABBA7D70071F5A2 /* Main.storyboard */,
@@ -243,9 +253,11 @@
 				937CF46A1ABBA7D70071F5A2 /* ViewController.m in Sources */,
 				9396810E1AD749B4003D9BFA /* HiddenCursorTextField.m in Sources */,
 				937CF4671ABBA7D70071F5A2 /* AppDelegate.m in Sources */,
+				93E3B1FE1AE03F6F008985C2 /* NavigationViewController.m in Sources */,
 				939B55711AC0FF2900153C45 /* RouteSection.m in Sources */,
 				9321C0A31AD70F0E004D57A3 /* ChooseSectionTypeTableViewController.m in Sources */,
 				937CF4641ABBA7D70071F5A2 /* main.m in Sources */,
+				93E3B2011AE04039008985C2 /* OverviewCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

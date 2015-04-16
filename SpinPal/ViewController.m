@@ -305,6 +305,7 @@ static int currentRunningSection;
 	} completion:^(BOOL finished) {
 		_editSectionView.hidden = false;
 	}];
+	[self saveRoute];
 }
 
 - (void)askDeleteSection {
