@@ -153,14 +153,19 @@ static int currentRunningSection;
 }
 
 - (IBAction)unwindChooseSectionType:(UIStoryboardSegue *)sender {
+	RouteSection *r = _editableSectionView.section;
 	_editableSectionView.section = _changeSectionType;
+	_editableSectionView.section.seconds = r.seconds;
+	_editableSectionView.section.rpm = r.rpm;
+	_editableSectionView.section.jumpCount = r.jumpCount;
+	_editableSectionView.section.intensity = r.intensity;
+	_editableSectionView.section.rightSide = r.rightSide;
 	[_editableSectionView loadData];
 }
 
 - (void)openNewSectionView:(UIButton *)sender {
-	if (![[[[[sender superview] superview] superview] superview] isKindOfClass:[UIScrollView class]]) {
-		RouteSection *sect = ((RouteSectionView*)[[sender superview] superview]).section;
-		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:sect];
+	if (sender == _editableSectionView.iconButton) {
+		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:nil];
 		return;
 	}
 	
@@ -174,15 +179,12 @@ static int currentRunningSection;
 	RouteSection *section = _route[SECTIONTOEDIT];
 	ISADDINGNEWSECTION = section.type==RouteTypeNone;
 	
-	if (!ISADDINGNEWSECTION) {
+	if (ISADDINGNEWSECTION) {
+		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:nil];
+	} else {
 //		load section to edit
 		[_editableSectionView setSection:section];
 		[_editableSectionView.section changeIcon];
-		[_editableSectionView loadData];
-	} else {
-		section.type = RouteTypeStraightStand;
-		[section changeIcon];
-		[_editableSectionView setSection:section];
 		[_editableSectionView loadData];
 	}
 	_editSectionView.hidden = false;
