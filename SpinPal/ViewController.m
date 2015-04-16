@@ -206,6 +206,14 @@ static int currentRunningSection;
 	[UIView animateWithDuration:.3 animations:^{
 		[_editSectionView.layer setOpacity:1];
 		[_editableSectionView.layer setOpacity:1];
+	} completion:^(BOOL finished) {
+		[UIView animateWithDuration:.7 delay:.5 options:(UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionRepeat) animations:^{
+			CGFloat minOpacity = .5;
+			[_editableSectionView.secondsTextField.layer setOpacity:minOpacity];
+			[_editableSectionView.jumpCountTextField.layer setOpacity:minOpacity];
+			[_editableSectionView.rpmTextField.layer setOpacity:minOpacity];
+			[_editableSectionView.rightSideButton.layer setOpacity:minOpacity];
+		} completion:nil];
 	}];
 }
 
