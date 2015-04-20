@@ -467,6 +467,12 @@ static int currentRunningSection;
 			[_scrollView setUserInteractionEnabled:false];
 			break;
 	}
+    
+    [UIView animateWithDuration:.2 animations:^{
+        [_routeOverviewButton.layer setOpacity:newStatus == CurrentStatusEmpty ? 0 : 1];
+    } completion:^(BOOL finished) {
+        _routeOverviewButton.hidden = newStatus == CurrentStatusEmpty;
+    }];
 	STATUS = newStatus;
 }
 

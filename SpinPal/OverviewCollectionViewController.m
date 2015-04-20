@@ -38,7 +38,11 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _route.count;
+    if (((RouteSection*)_route[_route.count-1]).type == SectionTypeNone) {
+        return _route.count-1;
+    } else {
+        return _route.count;
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
