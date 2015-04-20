@@ -18,6 +18,8 @@
     [super viewDidLoad];
 	[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 	
+	[self.collectionView setBackgroundColor:[UIColor colorWithHue:33/360. saturation:.03 brightness:.9 alpha:1]];
+    
 	_route = [[ViewController alloc] getRoute];
 }
 
@@ -28,15 +30,6 @@
 - (IBAction)closeView:(id)sender {
 	[self dismissViewControllerAnimated:true completion:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -50,7 +43,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-//	[cell setBackgroundView:[[UIImageView alloc] initWithImage:[_route[indexPath.row] icon]]];
+	[cell setBackgroundView:[[UIImageView alloc] initWithImage:[_route[indexPath.row] icon]]];
     return cell;
 }
 
