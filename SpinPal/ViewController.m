@@ -197,11 +197,11 @@ static int currentRunningSection;
 		[self hideDeleteButton];
 	} else {
 //		load section to edit
-		[_editableSectionView setSection:section];
 		[_editableSectionView.section changeIcon];
 		[_editableSectionView loadData];
 		[self showDeleteButton];
 	}
+    [_editableSectionView setSection:section];
 	_editSectionView.hidden = false;
 	[UIView animateWithDuration:.3 animations:^{
 		[_editSectionView.layer setOpacity:1];
@@ -304,6 +304,9 @@ static int currentRunningSection;
 		[_editableSectionView.layer setOpacity:0];
 	} completion:^(BOOL finished) {
 		_editSectionView.hidden = false;
+        [_secondsPickerView selectRow:0 inComponent:0 animated:false];
+        [_secondsPickerView selectRow:0 inComponent:1 animated:false];
+        [_jumpCountPickerView selectRow:0 inComponent:0 animated:false];
 	}];
 	[self saveRoute];
 }
