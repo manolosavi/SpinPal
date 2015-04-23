@@ -490,7 +490,7 @@ static int currentRunningSection;
 	NSData *data = [[NSMutableData alloc] initWithContentsOfFile:[self routeFilename]];
 	NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
 	
-	NSArray *recordedPresets = [unarchiver decodeObjectForKey:@"route"];
+	NSArray *recordedPresets = [unarchiver decodeObjectForKey:@"routes"];
 	
 	return [[NSMutableArray alloc] initWithArray:recordedPresets copyItems:NO];
 }
@@ -498,7 +498,7 @@ static int currentRunningSection;
 - (BOOL)saveRoute {
 	NSMutableData *data = [[NSMutableData alloc] init];
 	NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-	[archiver encodeObject:_route forKey:@"route"];
+	[archiver encodeObject:_routes forKey:@"routes"];
 	[archiver finishEncoding];
 	return [data writeToFile:[self routeFilename] atomically:true];
 }
@@ -526,6 +526,14 @@ static int currentRunningSection;
 		});
 	}];
 	[self setStatus:CurrentStatusEmpty];
+}
+
+- (NSMutableArray *)getRoutes {
+    return _routes;
+}
+
+- (void)setRoutes:(NSMutableArray *)routes {
+    _routes = routes;
 }
 
 - (void)askResetRoute {

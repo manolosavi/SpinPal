@@ -35,6 +35,9 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 };
 
 ///Array of RouteSections for the current route.
+@property (nonatomic, strong) NSMutableArray *routes;
+
+///Array of RouteSections for the current route.
 @property (strong) NSMutableArray *route;
 
 ///Array of RouteSectionViews for the current route.
@@ -218,6 +221,9 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
  @return Array of @c RouteSections that make the route
  */
 - (NSMutableArray *)getRoute;
+
+- (NSMutableArray *)getRoutes;
+- (void)setRoutes:(NSMutableArray*)routes;
 
 /**
  Saves the current route to disk.

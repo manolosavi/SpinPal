@@ -31,7 +31,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.destinationViewController isKindOfClass:[OverviewCollectionViewController class]]) {
 		[segue.destinationViewController setRoute:_route];
-	}
+    } else if ([segue.destinationViewController isKindOfClass:[SavedRoutesTableViewController class]]) {
+        [segue.destinationViewController setRoute:_route];
+    }
 }
 
 
