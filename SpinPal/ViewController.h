@@ -76,6 +76,9 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 ///Label that shows the sum of the duration of all sections in the current route in m:ss format.
 @property (weak, nonatomic) IBOutlet UILabel *totalTimeLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *routeOverviewButton;
+
+
 /**
  Loads all @c RouteSectionViews from @c routeViews into @c routeViewsContainer.
  */

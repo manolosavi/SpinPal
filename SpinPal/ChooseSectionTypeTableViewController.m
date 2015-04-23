@@ -19,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	NSLog(@"%ld", (long)_section.type);
 	_titles = [[NSArray alloc] initWithObjects:@"Straight Stand", @"Straight Sit", @"Jump", @"Jump", @"Jump", @"Jump", @"Uphill Stand", @"Uphill Stand", @"Uphill Stand", @"Uphill Stand", @"Uphill Sit", @"Uphill Sit", @"Uphill Sit", @"Uphill Sit", @"Race Stand", @"Race Sit", @"Sprint", @"Sprint Uphill", nil];
 }
 
@@ -67,7 +66,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//	Configure the cell...
+	[cell.textLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:18]];
 	cell.textLabel.text = _titles[indexPath.row];
 	RouteSection *r = [[RouteSection alloc] initWithSectionType:[self getSectionType:indexPath.row]];
 	r.intensity = [self getIntensity:indexPath.row];

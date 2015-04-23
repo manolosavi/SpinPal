@@ -197,11 +197,11 @@ static int currentRunningSection;
 		[self hideDeleteButton];
 	} else {
 //		load section to edit
-		[_editableSectionView setSection:section];
 		[_editableSectionView.section changeIcon];
 		[_editableSectionView loadData];
 		[self showDeleteButton];
 	}
+    [_editableSectionView setSection:section];
 	_editSectionView.hidden = false;
 	[UIView animateWithDuration:.3 animations:^{
 		[_editSectionView.layer setOpacity:1];
@@ -304,7 +304,11 @@ static int currentRunningSection;
 		[_editableSectionView.layer setOpacity:0];
 	} completion:^(BOOL finished) {
 		_editSectionView.hidden = false;
+        [_secondsPickerView selectRow:0 inComponent:0 animated:false];
+        [_secondsPickerView selectRow:0 inComponent:1 animated:false];
+        [_jumpCountPickerView selectRow:0 inComponent:0 animated:false];
 	}];
+	[self saveRoute];
 }
 
 - (void)askDeleteSection {
@@ -466,6 +470,12 @@ static int currentRunningSection;
 			[_scrollView setUserInteractionEnabled:false];
 			break;
 	}
+    
+    [UIView animateWithDuration:.2 animations:^{
+        [_routeOverviewButton.layer setOpacity:newStatus == CurrentStatusEmpty ? 0 : 1];
+    } completion:^(BOOL finished) {
+        _routeOverviewButton.hidden = newStatus == CurrentStatusEmpty;
+    }];
 	STATUS = newStatus;
 }
 
@@ -499,7 +509,11 @@ static int currentRunningSection;
 	[UIView animateWithDuration:.2 animations:^{
 		[_scrollView.layer setOpacity:0];
 	} completion:^(BOOL finished) {
+		for (int i=0; i<_route.count; i++) {
+			[_routeViewsContainer.subviews[0] removeFromSuperview];
+		}
 		[_route removeAllObjects];
+		_totalTimeLabel.text = @"0:00";
 		RouteSection *section = [[RouteSection alloc] initWithSectionType:SectionTypeNone];
 		[_route addObject:section];
 		[self saveRoute];
