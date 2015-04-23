@@ -84,10 +84,7 @@ static int currentRunningSection;
 	[_saveButton addTarget:self action:@selector(closeEditSectionView) forControlEvents:UIControlEventTouchUpInside];
 	[_deleteButton addTarget:self action:@selector(askDeleteSection) forControlEvents:UIControlEventTouchUpInside];
 	
-	_route = [self getRoute];
-	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
-//	[self loadViewsIntoContainer];
-//	For debugging, resets on launch
+	_route = [[NSMutableArray alloc] initWithObjects:nil];
 	[self resetRoute];
 }
 
@@ -174,6 +171,10 @@ static int currentRunningSection;
 	_editableSectionView.section.jumpCount = r.jumpCount;
 	_editableSectionView.section.rightSide = r.rightSide;
 	[_editableSectionView loadData];
+}
+
+- (IBAction)unwindSavedRoutesView:(UIStoryboardSegue *)sender {
+	_route = [[sender sourceViewController] route];
 }
 
 - (void)openEditSectionView:(UIButton *)sender {
@@ -308,7 +309,6 @@ static int currentRunningSection;
         [_secondsPickerView selectRow:0 inComponent:1 animated:false];
         [_jumpCountPickerView selectRow:0 inComponent:0 animated:false];
 	}];
-	[self saveRoute];
 }
 
 - (void)askDeleteSection {
@@ -479,30 +479,6 @@ static int currentRunningSection;
 	STATUS = newStatus;
 }
 
-#pragma mark - Saving / Loading
-
-- (NSString *)routeFilename {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	return [[paths objectAtIndex:0] stringByAppendingPathComponent:@"route.plist"];
-}
-
-- (NSMutableArray *)getRoute {
-	NSData *data = [[NSMutableData alloc] initWithContentsOfFile:[self routeFilename]];
-	NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	
-	NSArray *recordedPresets = [unarchiver decodeObjectForKey:@"routes"];
-	
-	return [[NSMutableArray alloc] initWithArray:recordedPresets copyItems:NO];
-}
-
-- (BOOL)saveRoute {
-	NSMutableData *data = [[NSMutableData alloc] init];
-	NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-	[archiver encodeObject:_routes forKey:@"routes"];
-	[archiver finishEncoding];
-	return [data writeToFile:[self routeFilename] atomically:true];
-}
-
 - (void)resetRoute {
 	CGPoint offset = CGPointMake(0, 0);
 	[_scrollView setContentOffset:offset animated:true];
@@ -516,7 +492,6 @@ static int currentRunningSection;
 		_totalTimeLabel.text = @"0:00";
 		RouteSection *section = [[RouteSection alloc] initWithSectionType:SectionTypeNone];
 		[_route addObject:section];
-		[self saveRoute];
 		[self loadViewsIntoContainer];
 		[_scrollView setContentOffset:offset animated:false];
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -526,14 +501,6 @@ static int currentRunningSection;
 		});
 	}];
 	[self setStatus:CurrentStatusEmpty];
-}
-
-- (NSMutableArray *)getRoutes {
-    return _routes;
-}
-
-- (void)setRoutes:(NSMutableArray *)routes {
-    _routes = routes;
 }
 
 - (void)askResetRoute {
@@ -608,6 +575,12 @@ static int currentRunningSection;
 //	Remove leading zeros.
 	_editableSectionView.rpmTextField.text = [_editableSectionView.rpmTextField.text stringByReplacingOccurrencesOfString:@"^0+" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, _editableSectionView.rpmTextField.text.length)];
 	[_editableSectionView.section setRpm:[_editableSectionView.rpmTextField.text integerValue]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.destinationViewController isKindOfClass:[NavigationViewController class]]) {
+		[segue.destinationViewController setRoute:_route];
+	}
 }
 
 @end

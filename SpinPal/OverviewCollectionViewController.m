@@ -19,8 +19,7 @@
 	[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 	
 	[self.collectionView setBackgroundColor:[UIColor colorWithHue:33/360. saturation:.03 brightness:.9 alpha:1]];
-    
-	_route = [[ViewController alloc] getRoute];
+	
 }
 
 - (void)didReceiveMemoryWarning {
