@@ -509,7 +509,11 @@ static int currentRunningSection;
 	[UIView animateWithDuration:.2 animations:^{
 		[_scrollView.layer setOpacity:0];
 	} completion:^(BOOL finished) {
+		for (int i=0; i<_route.count; i++) {
+			[_routeViewsContainer.subviews[0] removeFromSuperview];
+		}
 		[_route removeAllObjects];
+		_totalTimeLabel.text = @"0:00";
 		RouteSection *section = [[RouteSection alloc] initWithSectionType:SectionTypeNone];
 		[_route addObject:section];
 		[self saveRoute];
