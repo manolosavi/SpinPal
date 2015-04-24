@@ -80,6 +80,8 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 ///Button to show the route overview.
 @property (weak, nonatomic) IBOutlet UIButton *routeOverviewButton;
 
+///Button to show the saved routes.
+@property (weak, nonatomic) IBOutlet UIButton *savedRoutesButton;
 
 /**
  Loads all @c RouteSectionViews from @c routeViews into @c routeViewsContainer.

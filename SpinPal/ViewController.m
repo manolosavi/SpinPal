@@ -470,11 +470,14 @@ static int currentRunningSection;
 			[_scrollView setUserInteractionEnabled:false];
 			break;
 	}
-    
+	BOOL hideOverview = (newStatus == CurrentStatusEmpty || newStatus == CurrentStatusRunning);
+	BOOL hideSavedRoutes = (newStatus == CurrentStatusRunning || newStatus == CurrentStatusPaused);
     [UIView animateWithDuration:.2 animations:^{
-        [_routeOverviewButton.layer setOpacity:newStatus == CurrentStatusEmpty ? 0 : 1];
+        [_routeOverviewButton.layer setOpacity:hideOverview? 0 : 1];
+		[_savedRoutesButton.layer setOpacity:hideSavedRoutes? 0 : 1];
     } completion:^(BOOL finished) {
-        _routeOverviewButton.hidden = newStatus == CurrentStatusEmpty;
+        _routeOverviewButton.hidden = hideOverview;
+		_savedRoutesButton.hidden = hideSavedRoutes;
     }];
 	STATUS = newStatus;
 }

@@ -128,6 +128,7 @@
                         <outlet property="editSectionView" destination="f58-QY-WaI" id="8kz-94-RLz"/>
                         <outlet property="editableSectionView" destination="cK9-tZ-Yg7" id="Qvf-7m-WcZ"/>
                         <outlet property="routeOverviewButton" destination="LPv-8g-zT7" id="Pdl-Ix-jZ5"/>
+                        <outlet property="savedRoutesButton" destination="fkS-Ff-Inu" id="1Gy-IL-rRV"/>
                         <outlet property="scrollView" destination="rij-k1-jn8" id="nzP-PM-p2A"/>
                         <outlet property="totalTimeLabel" destination="aVM-8b-fXm" id="0cq-Qt-p4r"/>
                         <segue destination="frw-m4-kX0" kind="show" identifier="chooseSectionTypeSegue" id="QEP-gX-fKF"/>

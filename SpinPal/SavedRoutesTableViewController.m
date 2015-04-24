@@ -18,8 +18,9 @@
 	[super viewDidLoad];
 	_routes = [[NSMutableArray alloc] initWithObjects:nil];
 	_routes = [self getRoutes];
-
-	NSLog(@"%@", _route);
+	for (int i=0; i<_route.count; i++) {
+		NSLog(@"%f", [((RouteSection*)_route[i]) seconds]);
+	}
 	
 
 	 self.navigationItem.rightBarButtonItem = self.editButtonItem;
