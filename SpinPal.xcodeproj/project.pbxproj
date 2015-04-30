@@ -60,7 +60,7 @@
 		93E3B1FF1AE04039008985C2 /* OverviewCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewCollectionViewController.h; sourceTree = "<group>"; };
 		93E3B2001AE04039008985C2 /* OverviewCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewCollectionViewController.m; sourceTree = "<group>"; usesTabs = 1; };
 		C0EC372A1AE96F12008332BB /* SavedRoutesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedRoutesTableViewController.h; sourceTree = "<group>"; };
-		C0EC372B1AE96F12008332BB /* SavedRoutesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedRoutesTableViewController.m; sourceTree = "<group>"; };
+		C0EC372B1AE96F12008332BB /* SavedRoutesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedRoutesTableViewController.m; sourceTree = "<group>"; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

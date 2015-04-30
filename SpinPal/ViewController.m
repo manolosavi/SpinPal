@@ -23,6 +23,20 @@ static NSTimeInterval remainingTime;
 static NSTimeInterval currentSectionRemainingTime;
 static int currentRunningSection;
 
+
+-(void)viewWillAppear:(BOOL)animated {
+    for (int i=0; i<_route.count; i++) {
+        NSLog(@"%ld", [((RouteSection*)_route[i]) type]);
+    }
+    if (_shouldReload) {
+        _shouldReload = false;
+        while (_routeViewsContainer.subviews.count != 0) {
+            [_routeViewsContainer.subviews[0] removeFromSuperview];
+        }
+        [self loadViewsIntoContainer];
+    }
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
@@ -98,7 +112,8 @@ static int currentRunningSection;
 	}
 	[_scrollView insertSubview:_routeViewsContainer atIndex:0];
 	[_scrollView setContentSize:_routeViewsContainer.frame.size];
-	_routeViews = [[NSMutableArray alloc] init];
+    
+    _routeViews = [[NSMutableArray alloc] init];
 	for (int i=0; i<_route.count; i++) {
 		int offset = self.view.frame.size.width/2-80;
 		frame = CGRectMake(offset+200*i, 0, 160, 240);
@@ -309,6 +324,9 @@ static int currentRunningSection;
         [_secondsPickerView selectRow:0 inComponent:1 animated:false];
         [_jumpCountPickerView selectRow:0 inComponent:0 animated:false];
 	}];
+    for (int i=0; i<_route.count; i++) {
+        NSLog(@"%ld", [((RouteSection*)_route[i]) type]);
+    }
 }
 
 - (void)askDeleteSection {

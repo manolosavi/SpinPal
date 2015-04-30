@@ -35,6 +35,8 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 	CurrentStatusEnded		= 3,
 };
 
+@property BOOL shouldReload;
+
 ///Array of RouteSections for the current route.
 @property (strong) NSMutableArray *route;
 
