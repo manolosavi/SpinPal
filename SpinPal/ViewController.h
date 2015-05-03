@@ -112,6 +112,12 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 - (IBAction)unwindChooseSectionType:(UIStoryboardSegue *)sender;
 
 /**
+ Transitions the route from @c savedRoutesViewController.
+ @param sender Segue that is calling the method.
+ */
+- (IBAction)unwindSavedRoutesView:(UIStoryboardSegue *)sender;
+
+/**
  Shows @c editSectionView after tapping on a @c RouteSectionView to edit a section or add a new one.
  @param sender Button of the @c RouteSectionView that's calling the method.
  */

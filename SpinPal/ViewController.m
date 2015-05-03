@@ -25,9 +25,6 @@ static int currentRunningSection;
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    for (int i=0; i<_route.count; i++) {
-        NSLog(@"%ld", [((RouteSection*)_route[i]) type]);
-    }
     if (_shouldReload) {
         _shouldReload = false;
         while (_routeViewsContainer.subviews.count != 0) {
@@ -324,9 +321,6 @@ static int currentRunningSection;
         [_secondsPickerView selectRow:0 inComponent:1 animated:false];
         [_jumpCountPickerView selectRow:0 inComponent:0 animated:false];
 	}];
-    for (int i=0; i<_route.count; i++) {
-        NSLog(@"%ld", [((RouteSection*)_route[i]) type]);
-    }
 }
 
 - (void)askDeleteSection {
@@ -577,7 +571,7 @@ static int currentRunningSection;
 	} else {
 		number = pow(2, row);
 	}
-	return [NSString stringWithFormat:@"%ld", number];
+	return [NSString stringWithFormat:@"%ld", (long)number];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -585,7 +579,7 @@ static int currentRunningSection;
 		NSInteger mins = [pickerView selectedRowInComponent:0];
 		NSInteger secs = [pickerView selectedRowInComponent:1]*5;
 		[_editableSectionView.section setSeconds:(NSTimeInterval)(mins*60 + secs)];
-		_editableSectionView.secondsTextField.text = [NSString stringWithFormat:@"%ld:%.2ld", mins, secs];
+		_editableSectionView.secondsTextField.text = [NSString stringWithFormat:@"%ld:%.2ld", (long)mins, (long)secs];
 	} else {
 		[_editableSectionView.section setJumpCount:pow(2, row)];
 		_editableSectionView.jumpCountTextField.text = [NSString stringWithFormat:@"%.0f", pow(2, row)];

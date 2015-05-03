@@ -11,7 +11,7 @@
 #import "RouteSection.h"
 #import "RouteSectionView.h"
 
-@interface SavedRoutesTableViewController : UITableViewController <UIAlertViewDelegate>
+@interface SavedRoutesTableViewController : UITableViewController <UIAlertViewDelegate, UITableViewDataSource>
 
 ///Array of routes.
 @property NSMutableArray *routes;

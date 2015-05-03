@@ -21,10 +21,6 @@ BOOL selected = false;
 	[super viewDidLoad];
 	_routes = [[NSMutableArray alloc] initWithObjects:nil];
 	_routes = [self getRoutes];
-//	for (int i=0; i<_route.count; i++) {
-//		NSLog(@"%f", [((RouteSection*)_route[i]) seconds]);
-//	}
-	
 
 	 self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -58,13 +54,12 @@ BOOL selected = false;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return ([self isEditing] && !hasSaved)?_routes.count+1:_routes.count;
+    return ([self isEditing] && !hasSaved && _route.count > 1)?_routes.count+1:_routes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 	cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:15];
-//	cell.textLabel.text = [[_routes objectAtIndex:indexPath.row] objectAtIndex:0];
     if ([self isEditing] && indexPath.row == _routes.count) {
         cell.textLabel.text = @"+";
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -83,6 +78,15 @@ BOOL selected = false;
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+//		Delete the row from the data source
+		[_routes removeObjectAtIndex:indexPath.row];
+		[self saveRoutes];
+		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
+}
+
 - (void)addRoute:(UIGestureRecognizer*)gestureRecognizer {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Route name"
 													message:nil
@@ -94,12 +98,14 @@ BOOL selected = false;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	[_route insertObject:[alertView textFieldAtIndex:0].text atIndex:0];
-	NSArray *route = [[NSArray alloc] initWithArray:_route];
-	[_routes addObject:route];
-	hasSaved = true;
-	[self saveRoutes];
-	[self.tableView reloadData];
+	if (buttonIndex == 1) {
+		[_route insertObject:[alertView textFieldAtIndex:0].text atIndex:0];
+		NSArray *route = [[NSArray alloc] initWithArray:_route];
+		[_routes addObject:route];
+		hasSaved = true;
+		[self saveRoutes];
+		[self.tableView reloadData];
+	}
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -109,14 +115,6 @@ BOOL selected = false;
 	}
 	[super setEditing:editing animated:animated];
 	[self.tableView reloadData];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-		[_routes removeObjectAtIndex:indexPath.row];
-		[self saveRoutes];
-    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
