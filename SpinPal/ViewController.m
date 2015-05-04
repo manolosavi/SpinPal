@@ -29,7 +29,8 @@ static int currentRunningSection;
         _shouldReload = false;
         while (_routeViewsContainer.subviews.count != 0) {
             [_routeViewsContainer.subviews[0] removeFromSuperview];
-        }
+		}
+		[self setStatus:CurrentStatusReady];
         [self loadViewsIntoContainer];
     }
 }

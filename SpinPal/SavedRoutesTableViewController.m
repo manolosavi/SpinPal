@@ -105,6 +105,8 @@ BOOL selected = false;
 		hasSaved = true;
 		[self saveRoutes];
 		[self.tableView reloadData];
+	} else {
+		hasSaved = false;
 	}
 }
 
