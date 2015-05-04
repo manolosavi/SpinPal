@@ -20,19 +20,13 @@
 	[[self navigationBar] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 												  [UIColor colorWithWhite:0 alpha:1], NSForegroundColorAttributeName,
 												  [UIFont fontWithName:@"AvenirNext-Medium" size:20], NSFontAttributeName,nil]];
+	if ([self.viewControllers[0] isKindOfClass:[OverviewCollectionViewController class]] || [self.viewControllers[0] isKindOfClass:[SavedRoutesTableViewController class]]) {
+		[self.viewControllers[0] setRoute:_route];
+	}
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.destinationViewController isKindOfClass:[OverviewCollectionViewController class]]) {
-		[segue.destinationViewController setRoute:_route];
-	}
-}
-
 
 @end

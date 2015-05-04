@@ -23,6 +23,18 @@ static NSTimeInterval remainingTime;
 static NSTimeInterval currentSectionRemainingTime;
 static int currentRunningSection;
 
+
+-(void)viewWillAppear:(BOOL)animated {
+    if (_shouldReload) {
+        _shouldReload = false;
+        while (_routeViewsContainer.subviews.count != 0) {
+            [_routeViewsContainer.subviews[0] removeFromSuperview];
+		}
+		[self setStatus:CurrentStatusReady];
+        [self loadViewsIntoContainer];
+    }
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
@@ -84,10 +96,7 @@ static int currentRunningSection;
 	[_saveButton addTarget:self action:@selector(closeEditSectionView) forControlEvents:UIControlEventTouchUpInside];
 	[_deleteButton addTarget:self action:@selector(askDeleteSection) forControlEvents:UIControlEventTouchUpInside];
 	
-	_route = [self getRoute];
-	[self setStatus:(_route.count>1)?CurrentStatusReady:CurrentStatusEmpty];
-//	[self loadViewsIntoContainer];
-//	For debugging, resets on launch
+	_route = [[NSMutableArray alloc] initWithObjects:nil];
 	[self resetRoute];
 }
 
@@ -101,7 +110,8 @@ static int currentRunningSection;
 	}
 	[_scrollView insertSubview:_routeViewsContainer atIndex:0];
 	[_scrollView setContentSize:_routeViewsContainer.frame.size];
-	_routeViews = [[NSMutableArray alloc] init];
+    
+    _routeViews = [[NSMutableArray alloc] init];
 	for (int i=0; i<_route.count; i++) {
 		int offset = self.view.frame.size.width/2-80;
 		frame = CGRectMake(offset+200*i, 0, 160, 240);
@@ -174,6 +184,10 @@ static int currentRunningSection;
 	_editableSectionView.section.jumpCount = r.jumpCount;
 	_editableSectionView.section.rightSide = r.rightSide;
 	[_editableSectionView loadData];
+}
+
+- (IBAction)unwindSavedRoutesView:(UIStoryboardSegue *)sender {
+	_route = [[sender sourceViewController] route];
 }
 
 - (void)openEditSectionView:(UIButton *)sender {
@@ -308,7 +322,6 @@ static int currentRunningSection;
         [_secondsPickerView selectRow:0 inComponent:1 animated:false];
         [_jumpCountPickerView selectRow:0 inComponent:0 animated:false];
 	}];
-	[self saveRoute];
 }
 
 - (void)askDeleteSection {
@@ -470,37 +483,16 @@ static int currentRunningSection;
 			[_scrollView setUserInteractionEnabled:false];
 			break;
 	}
-    
+	BOOL hideOverview = (newStatus == CurrentStatusEmpty || newStatus == CurrentStatusRunning);
+	BOOL hideSavedRoutes = (newStatus == CurrentStatusRunning || newStatus == CurrentStatusPaused);
     [UIView animateWithDuration:.2 animations:^{
-        [_routeOverviewButton.layer setOpacity:newStatus == CurrentStatusEmpty ? 0 : 1];
+        [_routeOverviewButton.layer setOpacity:hideOverview? 0 : 1];
+		[_savedRoutesButton.layer setOpacity:hideSavedRoutes? 0 : 1];
     } completion:^(BOOL finished) {
-        _routeOverviewButton.hidden = newStatus == CurrentStatusEmpty;
+        _routeOverviewButton.hidden = hideOverview;
+		_savedRoutesButton.hidden = hideSavedRoutes;
     }];
 	STATUS = newStatus;
-}
-
-#pragma mark - Saving / Loading
-
-- (NSString *)routeFilename {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	return [[paths objectAtIndex:0] stringByAppendingPathComponent:@"route.plist"];
-}
-
-- (NSMutableArray *)getRoute {
-	NSData *data = [[NSMutableData alloc] initWithContentsOfFile:[self routeFilename]];
-	NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	
-	NSArray *recordedPresets = [unarchiver decodeObjectForKey:@"route"];
-	
-	return [[NSMutableArray alloc] initWithArray:recordedPresets copyItems:NO];
-}
-
-- (BOOL)saveRoute {
-	NSMutableData *data = [[NSMutableData alloc] init];
-	NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-	[archiver encodeObject:_route forKey:@"route"];
-	[archiver finishEncoding];
-	return [data writeToFile:[self routeFilename] atomically:true];
 }
 
 - (void)resetRoute {
@@ -516,7 +508,6 @@ static int currentRunningSection;
 		_totalTimeLabel.text = @"0:00";
 		RouteSection *section = [[RouteSection alloc] initWithSectionType:SectionTypeNone];
 		[_route addObject:section];
-		[self saveRoute];
 		[self loadViewsIntoContainer];
 		[_scrollView setContentOffset:offset animated:false];
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -581,7 +572,7 @@ static int currentRunningSection;
 	} else {
 		number = pow(2, row);
 	}
-	return [NSString stringWithFormat:@"%ld", number];
+	return [NSString stringWithFormat:@"%ld", (long)number];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -589,7 +580,7 @@ static int currentRunningSection;
 		NSInteger mins = [pickerView selectedRowInComponent:0];
 		NSInteger secs = [pickerView selectedRowInComponent:1]*5;
 		[_editableSectionView.section setSeconds:(NSTimeInterval)(mins*60 + secs)];
-		_editableSectionView.secondsTextField.text = [NSString stringWithFormat:@"%ld:%.2ld", mins, secs];
+		_editableSectionView.secondsTextField.text = [NSString stringWithFormat:@"%ld:%.2ld", (long)mins, (long)secs];
 	} else {
 		[_editableSectionView.section setJumpCount:pow(2, row)];
 		_editableSectionView.jumpCountTextField.text = [NSString stringWithFormat:@"%.0f", pow(2, row)];
@@ -600,6 +591,12 @@ static int currentRunningSection;
 //	Remove leading zeros.
 	_editableSectionView.rpmTextField.text = [_editableSectionView.rpmTextField.text stringByReplacingOccurrencesOfString:@"^0+" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, _editableSectionView.rpmTextField.text.length)];
 	[_editableSectionView.section setRpm:[_editableSectionView.rpmTextField.text integerValue]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.destinationViewController isKindOfClass:[NavigationViewController class]]) {
+		[segue.destinationViewController setRoute:_route];
+	}
 }
 
 @end

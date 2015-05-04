@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RouteSection.h"
 #import "RouteSectionView.h"
+#import "NavigationViewController.h"
 #import "ChooseSectionTypeTableViewController.h"
 
 @interface ViewController : UIViewController <UIAlertViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
@@ -33,6 +34,8 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 	CurrentStatusPaused		= 2,
 	CurrentStatusEnded		= 3,
 };
+
+@property BOOL shouldReload;
 
 ///Array of RouteSections for the current route.
 @property (strong) NSMutableArray *route;
@@ -76,8 +79,11 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
 ///Label that shows the sum of the duration of all sections in the current route in m:ss format.
 @property (weak, nonatomic) IBOutlet UILabel *totalTimeLabel;
 
+///Button to show the route overview.
 @property (weak, nonatomic) IBOutlet UIButton *routeOverviewButton;
 
+///Button to show the saved routes.
+@property (weak, nonatomic) IBOutlet UIButton *savedRoutesButton;
 
 /**
  Loads all @c RouteSectionViews from @c routeViews into @c routeViewsContainer.
@@ -104,6 +110,12 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
  @param sender Segue that is calling the method.
  */
 - (IBAction)unwindChooseSectionType:(UIStoryboardSegue *)sender;
+
+/**
+ Transitions the route from @c savedRoutesViewController.
+ @param sender Segue that is calling the method.
+ */
+- (IBAction)unwindSavedRoutesView:(UIStoryboardSegue *)sender;
 
 /**
  Shows @c editSectionView after tapping on a @c RouteSectionView to edit a section or add a new one.
@@ -206,24 +218,6 @@ typedef NS_ENUM(NSInteger, CurrentStatus) {
  @param newStatus Status the app will have when the method finishes.
  */
 - (void)setStatus:(CurrentStatus)newStatus;
-
-/**
- Gets the path to the file where the route is saved.
- @return String with the path to the file.
- */
-- (NSString *)routeFilename;
-
-/**
- Loads saved route from disk.
- @return Array of @c RouteSections that make the route
- */
-- (NSMutableArray *)getRoute;
-
-/**
- Saves the current route to disk.
- @return True if the saving succeeded, false otherwise.
- */
-- (BOOL)saveRoute;
 
 /**
  Resets the route by deleting all sections in the current route.
