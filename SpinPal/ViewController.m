@@ -209,13 +209,15 @@ static int currentRunningSection;
 	if (ISADDINGNEWSECTION) {
 		[self performSegueWithIdentifier:@"chooseSectionTypeSegue" sender:nil];
 		[self hideDeleteButton];
+		[_editableSectionView setSection:section];
 	} else {
 //		load section to edit
+		[_editableSectionView setSection:section];
 		[_editableSectionView.section changeIcon];
 		[_editableSectionView loadData];
 		[self showDeleteButton];
 	}
-    [_editableSectionView setSection:section];
+//    [_editableSectionView setSection:section];
 	_editSectionView.hidden = false;
 	[UIView animateWithDuration:.3 animations:^{
 		[_editSectionView.layer setOpacity:1];
